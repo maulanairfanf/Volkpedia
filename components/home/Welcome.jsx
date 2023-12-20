@@ -4,8 +4,10 @@ import styles from './welcome.style'
 import { COLORS, SIZES } from '../../constants'
 import { Feather, Ionicons } from "@expo/vector-icons"
 import { TextInput } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
 
 const Welcome = () => {
+  const navigation = useNavigation()
   return (
     <View style={styles.container} > 
       <Text style={styles.welcomeText(COLORS.black, SIZES.xSmall)}>
@@ -23,7 +25,7 @@ const Welcome = () => {
           <TextInput
             style={styles.searchInput}
             value=""
-            onPressIn={() => {}}
+            onPressIn={() => navigation.navigate("Search")}
             placeholder="What are you looking for"
           />
         </View>

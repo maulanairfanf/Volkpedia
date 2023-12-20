@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   location: {
     fontFamily: "semibold",
     fontSize: SIZES.medium,
-    colors: COLORS.gray
+    color: COLORS.gray
   },
   cartCount: {
     position: "absolute",
