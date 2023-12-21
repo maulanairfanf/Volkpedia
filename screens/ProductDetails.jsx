@@ -3,9 +3,13 @@ import React, {useState} from 'react'
 import styles from './productDetails.style'
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons"
 import { COLORS, SIZES } from '../constants'
+import { useRoute } from '@react-navigation/native'
 
 const ProductDetails = ({navigation}) => {
-  const [count, setCount] = useState(10)
+  const route = useRoute()
+  const {item} = route.params;
+
+  const [count, setCount] = useState(0)
 
   const increment = () => {
     setCount((prevCount) => prevCount + 1)
@@ -25,15 +29,15 @@ const ProductDetails = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <Image 
-        source={{uri: "https://d326fntlu7tb1e.cloudfront.net/uploads/cb2e64a8-ad4c-4d45-b58b-b0c7e11b6bb4-fn1.jpg" }}
+        source={{uri: item.imageUrl }}
         style={styles.image}
       />
       <View style={styles.details}>
         <View style={styles.titleRow}>
-          <Text style={styles.title}>Product</Text>
+          <Text style={styles.title}>{item.title}</Text>
           <View style={styles.priceWrapper}>
             <Text style={styles.price}>
-              Rp. 660.88
+              {item.price}
             </Text>
           </View>
         </View>
@@ -71,7 +75,7 @@ const ProductDetails = ({navigation}) => {
             Description
           </Text>
           <Text style={styles.descText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, voluptas ut ab ex in hic corrupti pariatur facere nihil illo eos, maiores officia tempora consectetur eligendi! Sit necessitatibus vel nemo.
+            {item.description}
           </Text>
         </View>
 
@@ -82,7 +86,7 @@ const ProductDetails = ({navigation}) => {
                 name="location-outline"
                 size={20}
                 />
-              <Text> Dallas </Text>
+              <Text> {item.location} </Text>
             </View>
 
             <View style={{ flexDirection: "row"}}>
