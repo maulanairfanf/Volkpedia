@@ -4,6 +4,7 @@ import styles from './productDetails.style'
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons"
 import { COLORS, SIZES } from '../constants'
 import { useRoute } from '@react-navigation/native'
+import { rupiah } from '../utils/currency'
 
 const ProductDetails = ({navigation}) => {
   const route = useRoute()
@@ -37,7 +38,7 @@ const ProductDetails = ({navigation}) => {
           <Text style={styles.title}>{item.title}</Text>
           <View style={styles.priceWrapper}>
             <Text style={styles.price}>
-              {item.price}
+              {rupiah(item.price)}
             </Text>
           </View>
         </View>
