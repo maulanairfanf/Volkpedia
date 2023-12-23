@@ -6,8 +6,7 @@ import styles from './productList.style'
 import ProductCard from './ProductCard'
 
 const ProductList = () => {
-  const {data, isLoading, error, refetch } = useFetch()
-  console.log('data', data)
+  const {data, isLoading, error, refetch } = useFetch("/products/limit=10")
 
   if (isLoading) {
     return (
