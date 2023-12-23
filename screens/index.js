@@ -3,7 +3,7 @@ import Home from "./Home";
 import Profile from "./Profile";
 import Cart from "./Cart";
 import ProductDetails from "./ProductDetails";
-import NewRivals from "./NewRivals";
+import NewProducts from "./NewProducts";
 
 export {
   Home,
@@ -11,5 +11,5 @@ export {
   Profile,
   Cart,
   ProductDetails,
-  NewRivals,
+  NewProducts,
 }

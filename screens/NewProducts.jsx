@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import React from 'react'
-import styles from './newRivals.style'
+import styles from './newProducts.style'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from "@expo/vector-icons"
 import { COLORS, SIZES } from '../constants'
 import ProductList from '../components/products/ProductList'
-const NewRivals = ({navigation}) => {
+const NewProducts = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
@@ -23,4 +23,4 @@ const NewRivals = ({navigation}) => {
   )
 }
 
-export default NewRivals
+export default NewProducts
