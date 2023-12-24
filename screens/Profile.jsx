@@ -4,8 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './profile.style'
 import {MaterialIcons, Ionicons} from "@expo/vector-icons"
 import { COLORS } from '../constants'
+import { useNavigation } from '@react-navigation/native'
+
 
 const Profile = () => {
+  const navigation = useNavigation()
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -29,7 +33,7 @@ const Profile = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.borderMenu}>
-            <TouchableOpacity style={[styles.menu, {color: COLORS.red}]}>
+            <TouchableOpacity style={[styles.menu, {color: COLORS.red}]} onPress={() => navigation.navigate("SignIn")}>
               <MaterialIcons name="logout" size={24} color={COLORS.red}/>
               <Text style={[styles.nameMenu, , {color: COLORS.red}]}>
                 Logout
