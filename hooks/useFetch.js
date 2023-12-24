@@ -11,7 +11,6 @@ const useFetch = (endpoint) => {
     setIsLoading(true);
     try {
       const response =  await api.get(endpoint)
-      console.log('response', response.data)
       setData(response.data);
       setIsLoading(false);
     } catch (error) {

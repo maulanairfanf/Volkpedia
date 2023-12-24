@@ -23,10 +23,10 @@ async function getValueFor(key) {
 const Welcome = () => {
   const navigation = useNavigation()
 
-  useEffect(() => {
-    save()
-    getValueFor()
-  },[])
+  // useEffect(() => {
+  //   save()
+  //   getValueFor()
+  // },[])
   return (
     <View style={styles.container} > 
       <Text style={styles.welcomeText(COLORS.black, SIZES.xSmall)}>
