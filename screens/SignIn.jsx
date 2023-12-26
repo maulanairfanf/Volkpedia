@@ -1,19 +1,43 @@
-import { View, Text, SafeAreaView, Image, TextInput, Button, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text,  Image, TextInput,  Pressable, ActivityIndicator, Alert } from 'react-native'
+import React, { useState, useContext, createContext, useEffect } from 'react'
 import styles from './signIn.style'
-import { Feather, Ionicons } from "@expo/vector-icons"
+import { Feather } from "@expo/vector-icons"
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import { COLORS } from '../constants';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { COLORS, SIZES } from '../constants';
+import { api } from '../hooks/axios'
+import * as SecureStore from 'expo-secure-store';
+import { useNavigation } from '@react-navigation/native'
+import { AuthContext } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 const SignIn = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const navigation = useNavigation()
+  const [email, setEmail] = useState('maulanairfanf@gmail.com')
+  const [password, setPassword] = useState('password')
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const { onLogin } = useAuth();
 
   const toggleShowPassword = () => { 
     setShowPassword(!showPassword); 
   };
+
+  async function save(key, value) {
+    await SecureStore.setItemAsync(key, value);
+  }
+
+  const handleLogin = async () => {
+    setIsLoading(true)
+    const response = await onLogin(email,password)
+    if (!response.data) {
+      Alert.alert('Try Again', 'Wrong email or password', [
+        {text: 'Try Again', onPress: () => console.log('Try Again')},
+      ]);
+
+    }
+    setIsLoading(false)
+  }
+
 
   return (
     <KeyboardAwareScrollView>
@@ -50,24 +74,29 @@ const SignIn = () => {
             />
           </View>
            <View>
-            <TouchableOpacity>
+            {/* <TouchableOpacity> */}
               <Feather 
                 name={showPassword ? 'eye' : 'eye-off'} 
                 size={24} 
                 style={styles.inputIcon}
                 onPress={toggleShowPassword} 
-
               />
-            </TouchableOpacity>
+            {/* </TouchableOpacity> */}
           </View>
         </View>
         <View style={styles.buttonContainer}>
           <Pressable
+            disabled={isLoading}
             style={styles.button}
-            onPress={() => {}}
-          > 
-            <Text style={styles.textButton}>LOGIN</Text>
+            onPress={() => handleLogin()}
+          >
+            {isLoading ? 
+              <ActivityIndicator size={SIZES.xLarge + 1} color={COLORS.lightWhite} />
+              :
+             <Text style={styles.textButton}>LOGIN</Text>
+            }
           </Pressable>
+
         </View>
       </View>
     </KeyboardAwareScrollView>

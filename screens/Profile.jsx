@@ -1,14 +1,21 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './profile.style'
 import {MaterialIcons, Ionicons} from "@expo/vector-icons"
 import { COLORS } from '../constants'
 import { useNavigation } from '@react-navigation/native'
-
+import { useAuth } from '../context/AuthContext'
+import * as SecureStore from 'expo-secure-store';
 
 const Profile = () => {
   const navigation = useNavigation()
+  const { onLogout } = useAuth();
+
+  const handleLogout = async () => {
+    await onLogout()
+    navigation.navigate("SignIn")
+  }
 
   return (
     <SafeAreaView>
@@ -33,7 +40,7 @@ const Profile = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.borderMenu}>
-            <TouchableOpacity style={[styles.menu, {color: COLORS.red}]} onPress={() => navigation.navigate("SignIn")}>
+            <TouchableOpacity style={[styles.menu, {color: COLORS.red}]} onPress={() => handleLogout()}>
               <MaterialIcons name="logout" size={24} color={COLORS.red}/>
               <Text style={[styles.nameMenu, , {color: COLORS.red}]}>
                 Logout

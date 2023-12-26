@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   inputIcon: {
     marginHorizontal: 10,
     color: COLORS.gray,
-    marginTop: SIZES.small
+    marginTop: SIZES.small,
   },
   inputWrapper:{
     flex: 1, 
@@ -52,6 +52,8 @@ const styles = StyleSheet.create({
     marginTop: SIZES.large
   },
   button: {
+    justifyContent: "center",
+    flexDirection: "row",
     backgroundColor: COLORS.primary,
     alignItems: "center",
     paddingVertical: SIZES.xSmall - 4,
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     color: COLORS.lightWhite,
-    fontFamily: "bold"
+    fontFamily: "bold",
   }
 })
 

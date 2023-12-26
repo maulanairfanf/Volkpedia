@@ -7,18 +7,18 @@ import { TextInput } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import * as SecureStore from 'expo-secure-store';
 
-async function save(key, value) {
-  await SecureStore.setItemAsync("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODdiYWE0MGM5NThjYWUzMDY5MmQ0NyIsImlhdCI6MTcwMzM5NzM4NiwiZXhwIjoxNzA1OTg5Mzg2fQ.yBkiErwOF-yHD8zCfNE_rknWB_JOxZAv2M3agVR6AS4");
-}
+// async function save(key, value) {
+//   await SecureStore.setItemAsync("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODdiYWE0MGM5NThjYWUzMDY5MmQ0NyIsImlhdCI6MTcwMzM5NzM4NiwiZXhwIjoxNzA1OTg5Mzg2fQ.yBkiErwOF-yHD8zCfNE_rknWB_JOxZAv2M3agVR6AS4");
+// }
 
-async function getValueFor(key) {
-  let result = await SecureStore.getItemAsync("token");
-  if (result) {
-    alert("🔐 Here's your value 🔐 \n" + result);
-  } else {
-    alert('No values stored under that key.');
-  }
-}
+// async function getValueFor(key) {
+//   let result = await SecureStore.getItemAsync("token");
+//   if (result) {
+//     alert("🔐 Here's your value 🔐 \n" + result);
+//   } else {
+//     alert('No values stored under that key.');
+//   }
+// }
 
 const Welcome = () => {
   const navigation = useNavigation()
