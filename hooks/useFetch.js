@@ -24,7 +24,6 @@ const useFetch = (endpoint) => {
   };
 
   useEffect(() => {
-    console.log('fetch')
     fetchData();
   }, [authState]);
 

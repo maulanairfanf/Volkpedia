@@ -12,7 +12,8 @@ export const useAuth = () => {
 export const AuthProvider = ({children}) => {
   const [authState, setAuthState] = useState({
     token: null,
-    authenticated: null
+    authenticated: null,
+    isLoading: true
   })
 
   useEffect(() => {
@@ -22,7 +23,8 @@ export const AuthProvider = ({children}) => {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         setAuthState({
           token: token,
-          authenticated: true
+          authenticated: true,
+          isLoading: false
         })
       } 
     }
@@ -40,14 +42,16 @@ export const AuthProvider = ({children}) => {
   const login = async (email, password) => {
     try {
       const response = await api.post('/users/login', {email, password})
+      
+      api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
+      
+      await SecureStore.setItemAsync(TOKEN_KEY, response.data.token)
       setAuthState({
         token: response.data.token,
-        authenticated: true
+        authenticated: true,
+        isLoading: false
       })
-
-      api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
-
-      await SecureStore.setItemAsync(TOKEN_KEY, response.data.token)
+      console.log('masuk sini dulu')
       return response
     } catch (error) {
       console.log('error',  error)

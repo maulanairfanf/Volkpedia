@@ -17,8 +17,6 @@ function LoadingScreen ()  {
 }
 
 export default function App() {
-  // const [isLoading, setIsLoading] = useState(true)
-  // const [state, dispatch] = useContext(AuthContext);
   const [fontsLoaded] = useFonts({
     regular: require("./assets/fonts/Poppins-Regular.ttf"),
     light: require("./assets/fonts/Poppins-Light.ttf"),
@@ -48,13 +46,12 @@ export default function App() {
 
 
 export const Layout = () => {
-  const [isLoading, setIsLoading] = useState(false)
 
-  const { authState, onLogout } = useAuth()
+  const { authState } = useAuth()
   return (
     <NavigationContainer>
       <Stack.Navigator>
-           {isLoading ? (
+           {authState.isLoading ? (
             // We haven't finished checking for the token yet
             <Stack.Screen 
               name="Splash" 
@@ -63,7 +60,7 @@ export const Layout = () => {
                 headerShown: false,
               }}
             />
-          ) : !authState?.authenticated ? (
+          ) : !authState.authenticated ? (
             <Stack.Screen
               name="SignIn"
               component={SignIn}
