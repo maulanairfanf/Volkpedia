@@ -1,6 +1,6 @@
 import { View, Text,  Image, TextInput,  Pressable, ActivityIndicator, Alert, TouchableOpacity } from 'react-native'
 import React, { useState} from 'react'
-import styles from './signIn.style'
+import styles from './signUp.style'
 import { Feather } from "@expo/vector-icons"
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { COLORS, SIZES } from '../constants';
