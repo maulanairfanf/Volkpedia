@@ -5,6 +5,7 @@ import Cart from "./Cart";
 import ProductDetails from "./ProductDetails";
 import NewProducts from "./NewProducts";
 import SignIn from "./SignIn";
+import SignUp from './SignUp'
 export {
   Home,
   Search,
@@ -13,4 +14,5 @@ export {
   ProductDetails,
   NewProducts,
   SignIn,
+  SignUp
 }

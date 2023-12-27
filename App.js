@@ -4,7 +4,7 @@ import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { useCallback,useState} from 'react';
 import BottomTabNavigation from './navigation/BottomTabNavigation';
-import { Cart, ProductDetails, NewProducts, SignIn } from './screens';
+import { Cart, ProductDetails, NewProducts, SignIn, SignUp } from './screens';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ActivityIndicator } from 'react-native';
 
@@ -61,6 +61,7 @@ export const Layout = () => {
               }}
             />
           ) : !authState.authenticated ? (
+            <>
             <Stack.Screen
               name="SignIn"
               component={SignIn}
@@ -68,6 +69,14 @@ export const Layout = () => {
                 headerShown: false,
               }}
             />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUp}
+              options={{
+                headerShown: false,
+              }}
+            />
+            </>
           ) : (
             <>
               <Stack.Screen 

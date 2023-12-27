@@ -4,31 +4,28 @@ import styles from './signIn.style'
 import { Feather } from "@expo/vector-icons"
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { COLORS, SIZES } from '../constants';
-import * as SecureStore from 'expo-secure-store';
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../context/AuthContext';
 
 const SignIn = () => {
   const navigation = useNavigation()
-  const [email, setEmail] = useState('maulanairfanf@gmail.com')
-  const [password, setPassword] = useState('password')
+  const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const { onLogin } = useAuth();
+  const { onRegister } = useAuth();
 
   const toggleShowPassword = () => { 
     setShowPassword(!showPassword); 
   };
 
-  async function save(key, value) {
-    await SecureStore.setItemAsync(key, value);
-  }
-
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     setIsLoading(true)
-    const response = await onLogin(email,password)
+    const response = await onRegister(email, password, fullName)
     if (!response.data) {
-      Alert.alert('Try Again', 'Wrong email or password', [
+      Alert.alert('Try Again', 'Email address already use', [
         {text: 'Try Again', onPress: () => console.log('Try Again')},
       ]);
 
@@ -44,7 +41,20 @@ const SignIn = () => {
           style={styles.image} 
           source={require("../assets/images/bk.png")}
         />
-        <Text style={styles.title}>Unlimited Luxurious Furniture</Text>
+        <Text style={styles.title}>Sign up and start Shopping</Text>
+        <View style={styles.inputContainer}>
+          <View>
+            <Feather name="user" size={24} style={styles.inputIcon} />
+          </View>
+          <View style={styles.inputWrapper}>
+            <TextInput
+              style={styles.input}
+              value={fullName}
+              onChangeText={setFullName}
+              placeholder="Full Name"
+            />
+          </View>
+        </View>
         <View style={styles.inputContainer}>
           <View>
             <Feather name="mail" size={24} style={styles.inputIcon} />
@@ -86,7 +96,7 @@ const SignIn = () => {
           <Pressable
             disabled={isLoading}
             style={styles.button}
-            onPress={() => handleLogin()}
+            onPress={() => handleRegister()}
           >
             {isLoading ? 
               <ActivityIndicator size={SIZES.xLarge + 1} color={COLORS.lightWhite} />
@@ -96,12 +106,12 @@ const SignIn = () => {
           </Pressable>
 
         </View>
-        <View style={{ flexDirection: "row", alignItems: "center", marginTop: SIZES.medium }}>
-          <Text style={{marginRight: SIZES.xSmall - 6 }}>Don't have an account? 
+        <View style={{ flexDirection: "row", alignItems: "center", marginVertical: SIZES.medium }}>
+          <Text style={{marginRight: SIZES.xSmall - 6 }}>Already have an account? 
           </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
             <Text>
-              Register
+              SignUp
             </Text>
             </TouchableOpacity>
         </View>

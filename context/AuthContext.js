@@ -24,16 +24,32 @@ export const AuthProvider = ({children}) => {
         setAuthState({
           token: token,
           authenticated: true,
-          isLoading: false
         })
-      } 
+      }
+      setAuthState({
+        isLoading: false
+      })
     }
     loadToken()
   },[])
 
-  const register = async (email, password) => {
+  const setConfig = async (token) => {
+
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    
+    await SecureStore.setItemAsync(TOKEN_KEY, token)
+    setAuthState({
+      token: token,
+      authenticated: true,
+      isLoading: false
+    })
+  }
+
+  const register = async (email, password, fullName) => {
     try {
-      return await api.post('/users/register', {email,password})
+      const response = await api.post('/users/register', {email, password, fullName})
+      setConfig(response.data.token)
+      return response
     } catch (error) {
       return error
     }
@@ -42,19 +58,9 @@ export const AuthProvider = ({children}) => {
   const login = async (email, password) => {
     try {
       const response = await api.post('/users/login', {email, password})
-      
-      api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
-      
-      await SecureStore.setItemAsync(TOKEN_KEY, response.data.token)
-      setAuthState({
-        token: response.data.token,
-        authenticated: true,
-        isLoading: false
-      })
-      console.log('masuk sini dulu')
+      setConfig(response.data.token)
       return response
     } catch (error) {
-      console.log('error',  error)
       return error
     }
   }
