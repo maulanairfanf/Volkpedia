@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   textButton: {
     color: COLORS.lightWhite,
     fontFamily: "bold",
-  },
+  }
 })
 
 export default styles

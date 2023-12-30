@@ -1,11 +1,10 @@
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Image, FlatList, ScrollView } from 'react-native'
+import { View, TouchableOpacity, TextInput, Image, FlatList, ScrollView } from 'react-native'
 import React, {useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './search.style'
 import { Feather, Ionicons } from "@expo/vector-icons"
 import { COLORS, SIZES } from '../constants'
-import axios from 'axios'
-import ProductCard from '../components/products/ProductCard'
+import {api} from '../hooks/axios'
 import SearchTile from '../components/products/SearchTile'
 
 const Search = () => {
@@ -13,16 +12,17 @@ const Search = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = async () => {
-    try {
-      const response = await axios.get("http://10.0.2.2:3001/api/products/search/" + searchKey)
-      console.log('response', response.data)
-      setSearchResults(response.data)
-    } catch (error) {
-      console.log('error', error)
+    if (searchKey !== '') {
+      try {
+        const response = await api.get("/products/search/" + searchKey)
+        setSearchResults(response.data)
+      } catch (error) {
+        setSearchResults([])
+      }
+    } else {
       setSearchResults([])
     }
   }
-
 
   return (
     <SafeAreaView>
