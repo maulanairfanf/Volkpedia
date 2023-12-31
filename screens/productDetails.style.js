@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "bold",
-    fontSize: SIZES.large
+    fontSize: SIZES.large,
+    width: 200
   },
   price:{
     padding: 2,

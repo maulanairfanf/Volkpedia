@@ -4,7 +4,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Home, Profile, Search } from '../screens'
 import { Ionicons } from "@expo/vector-icons"
 import { COLORS } from "../constants/index"
-import useFetch from '../hooks/useFetch'
 
 const Tab = createBottomTabNavigator()
 
@@ -23,7 +22,6 @@ const screenOptions = {
 }
 
 const BottomTabNavigation = () => {
-  const {data, isLoading, error} = useFetch("/products/limit=4")
 
   return (
     <Tab.Navigator screenOptions={screenOptions} >
