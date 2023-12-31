@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "bold",
     fontSize: SIZES.large,
+    height: 30
   },
   supplier: {
     fontFamily: "regular",

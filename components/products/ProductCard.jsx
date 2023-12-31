@@ -13,13 +13,13 @@ const ProductCard = ({item}) => {
       <View style={styles.container} >
         <View style={styles.imageContainer}>
           <Image 
-            source={{uri: item.imageUrl }}
+            source={{uri: item.image }}
             style={styles.image}
           />
         </View>
         <View style={styles.details}>
-          <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
-          <Text style={styles.supplier} numberOfLines={1}>{item.supplier}</Text>
+          <Text style={styles.title} numberOfLines={1}>{item.name}</Text>
+          <Text style={styles.supplier} numberOfLines={1}>{item.location}</Text>
           <Text style={styles.price} numberOfLines={1}>{rupiah(item.price)}</Text>
         </View>
         <TouchableOpacity style={styles.addBtn}>

@@ -30,12 +30,12 @@ const ProductDetails = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <Image 
-        source={{uri: item.imageUrl }}
+        source={{uri: item.image }}
         style={styles.image}
       />
       <View style={styles.details}>
         <View style={styles.titleRow}>
-          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title}>{item.name}</Text>
           <View style={styles.priceWrapper}>
             <Text style={styles.price}>
               {rupiah(item.price)}

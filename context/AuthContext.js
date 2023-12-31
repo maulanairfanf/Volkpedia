@@ -24,11 +24,15 @@ export const AuthProvider = ({children}) => {
         setAuthState({
           token: token,
           authenticated: true,
+          isLoading: false
+        })
+      } else {
+        setAuthState({
+          token: null,
+          authenticated: false,
+          isLoading: false
         })
       }
-      setAuthState({
-        isLoading: false
-      })
     }
     loadToken()
   },[])
@@ -47,7 +51,7 @@ export const AuthProvider = ({children}) => {
 
   const register = async (email, password, fullName) => {
     try {
-      const response = await api.post('/users/register', {email, password, fullName})
+      const response = await api.post('/auth/signup', {email, password, fullName})
       setConfig(response.data.token)
       return response
     } catch (error) {
@@ -56,11 +60,16 @@ export const AuthProvider = ({children}) => {
   }
 
   const login = async (email, password) => {
+    console.log('email', email)
+    console.log('password', password)
     try {
-      const response = await api.post('/users/login', {email, password})
-      setConfig(response.data.token)
+      const response = await api.post('/auth/signin', {email, password})
+      console.log('response',response)
+      setConfig(response.data.data.token)
       return response
     } catch (error) {
+      console.log('error', error)
+      throw error
       return error
     }
   }

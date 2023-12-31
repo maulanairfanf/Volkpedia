@@ -3,7 +3,7 @@ import {BASE_URL} from '@env'
 
 
 const api = axios.create({
-  baseURL: BASE_URL
+  baseURL: "http://10.0.2.2:9000/api/v1"
 })
 
 // api.interceptors.request.use(

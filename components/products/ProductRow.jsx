@@ -6,7 +6,7 @@ import styles from './productRow.style'
 import useFetch from '../../hooks/useFetch'
 
 const ProductRow = () => {
-  const {data, isLoading, error} = useFetch("/products/limit=4")
+  const {data, isLoading, error} = useFetch("/product")
   
   return (
     <View style={styles.container}>

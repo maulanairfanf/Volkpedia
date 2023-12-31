@@ -7,6 +7,7 @@ import { COLORS, SIZES } from '../constants';
 import * as SecureStore from 'expo-secure-store';
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../context/AuthContext';
+import {BASE_URL} from '@env'
 
 const SignIn = () => {
   const navigation = useNavigation()
@@ -14,7 +15,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('password')
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const { onLogin } = useAuth();
+  const { authState, onLogin } = useAuth();
 
   const toggleShowPassword = () => { 
     setShowPassword(!showPassword); 
@@ -25,15 +26,18 @@ const SignIn = () => {
   }
 
   const handleLogin = async () => {
+    console.log('true', BASE_URL)
     setIsLoading(true)
-    const response = await onLogin(email,password)
-    if (!response.data) {
+    try {
+      await onLogin(email,password)
+    } catch (error) {
       Alert.alert('Try Again', 'Wrong email or password', [
         {text: 'Try Again', onPress: () => console.log('Try Again')},
       ]);
-
+      setIsLoading(false)
+      throw error
     }
-    setIsLoading(false)
+    // setIsLoading(false)
   }
 
 
@@ -44,7 +48,7 @@ const SignIn = () => {
           style={styles.image} 
           source={require("../assets/images/bk.png")}
         />
-        <Text style={styles.title}>Unlimited Luxurious Furniture</Text>
+        <Text style={styles.title}>Unlimited Luxurious Furniture {authState.isLoading}</Text>
         <View style={styles.inputContainer}>
           <View>
             <Feather name="mail" size={24} style={styles.inputIcon} />

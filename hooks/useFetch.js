@@ -10,22 +10,24 @@ const useFetch = (endpoint) => {
   const { authState } = useAuth();
 
   const fetchData = async () => {
+    console.log('fetchData')
     setIsLoading(true);
     try {
       const response =  await api.get(endpoint)
-      setData(response.data);
-      setIsLoading(false);
+      console.log('response', response)
+      setData(response.data.data);
     } catch (error) {
       setError(error);
       console.log("error",error)
-    } finally {
-      setIsLoading(false);
+      setData([])
+      throw error
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchData();
-  }, [authState]);
+  }, []);
 
   const refetch = () => {
     setIsLoading(true);
