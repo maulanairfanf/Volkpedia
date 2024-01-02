@@ -1,4 +1,4 @@
-import { View, Text,  Image, TextInput,  Pressable, ActivityIndicator, Alert, TouchableOpacity } from 'react-native'
+import { View, Text,  Image, TextInput,  Pressable, ActivityIndicator, Alert, TouchableOpacity, ToastAndroid } from 'react-native'
 import React, { useState} from 'react'
 import styles from './signUp.style'
 import { Feather } from "@expo/vector-icons"
@@ -9,9 +9,9 @@ import { useAuth } from '../context/AuthContext';
 
 const SignIn = () => {
   const navigation = useNavigation()
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [fullName, setFullName] = useState('Axie Maul Satu')
+  const [email, setEmail] = useState('axiemaulsatu@gmail.com')
+  const [password, setPassword] = useState('password')
 
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -23,12 +23,12 @@ const SignIn = () => {
 
   const handleRegister = async () => {
     setIsLoading(true)
-    const response = await onRegister(email, password, fullName)
-    if (!response.data) {
-      Alert.alert('Try Again', 'Email address already use', [
-        {text: 'Try Again', onPress: () => console.log('Try Again')},
-      ]);
-
+    try {
+      const response = await onRegister(email,password, fullName)
+      if (response) navigation.navigate('SignIn')
+    } catch (error) {
+      ToastAndroid.show('Email already used', ToastAndroid.SHORT);
+      throw error
     }
     setIsLoading(false)
   }
@@ -101,7 +101,7 @@ const SignIn = () => {
             {isLoading ? 
               <ActivityIndicator size={SIZES.xLarge + 1} color={COLORS.lightWhite} />
               :
-             <Text style={styles.textButton}>LOGIN</Text>
+             <Text style={styles.textButton}>SignUp</Text>
             }
           </Pressable>
 
@@ -111,7 +111,7 @@ const SignIn = () => {
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
             <Text>
-              SignUp
+              SignIn
             </Text>
             </TouchableOpacity>
         </View>

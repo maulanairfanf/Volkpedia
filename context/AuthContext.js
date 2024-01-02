@@ -52,7 +52,6 @@ export const AuthProvider = ({children}) => {
   const register = async (email, password, fullName) => {
     try {
       const response = await api.post('/auth/signup', {email, password, fullName})
-      setConfig(response.data.token)
       return response
     } catch (error) {
       return error
@@ -60,8 +59,6 @@ export const AuthProvider = ({children}) => {
   }
 
   const login = async (email, password) => {
-    console.log('email', email)
-    console.log('password', password)
     try {
       const response = await api.post('/auth/signin', {email, password})
       console.log('response',response)
@@ -69,7 +66,6 @@ export const AuthProvider = ({children}) => {
       return response
     } catch (error) {
       console.log('error', error)
-      throw error
       return error
     }
   }

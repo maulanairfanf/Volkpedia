@@ -1,4 +1,4 @@
-import { View, Text,  Image, TextInput,  Pressable, ActivityIndicator, Alert, TouchableOpacity } from 'react-native'
+import { View, Text,  Image, TextInput,  Pressable, ActivityIndicator, Alert, TouchableOpacity, ToastAndroid } from 'react-native'
 import React, { useState} from 'react'
 import styles from './signIn.style'
 import { Feather } from "@expo/vector-icons"
@@ -21,23 +21,15 @@ const SignIn = () => {
     setShowPassword(!showPassword); 
   };
 
-  async function save(key, value) {
-    await SecureStore.setItemAsync(key, value);
-  }
-
   const handleLogin = async () => {
-    console.log('true', BASE_URL)
     setIsLoading(true)
     try {
       await onLogin(email,password)
     } catch (error) {
-      Alert.alert('Try Again', 'Wrong email or password', [
-        {text: 'Try Again', onPress: () => console.log('Try Again')},
-      ]);
+      ToastAndroid.show('Invalid Credential', ToastAndroid.SHORT);
       setIsLoading(false)
       throw error
     }
-    // setIsLoading(false)
   }
 
 
