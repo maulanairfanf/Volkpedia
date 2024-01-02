@@ -24,7 +24,6 @@ const ProductDetails = ({navigation}) => {
 
   async function handleAddToCart ()  {
     setIsLoading(true)
-    console.log('item', item)
     const params = {
       productId: item._id,
       quantity: count
@@ -33,6 +32,7 @@ const ProductDetails = ({navigation}) => {
       const response = await api.post('/cart', params)
       if (response) ToastAndroid.show('Succes Add To Cart', ToastAndroid.SHORT);
     } catch (error) {
+      if (error) ToastAndroid.show('Failed Add Product To Cart', ToastAndroid.SHORT);
       console.log('error', error)
     }
     setIsLoading(false)

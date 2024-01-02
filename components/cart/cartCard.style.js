@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "bold",
     fontSize: SIZES.large,
-    color: COLORS.primary
+    color: COLORS.primary,
+    width: 200,
   },
   supplier: {
     fontFamily: "regular",

@@ -5,7 +5,7 @@ import CartCard from './CartCard'
 import styles from './listCart.style'
 // import useFetch from '../../hooks/useFetch'
 
-const ListCart = ({data, isLoading, error}) => {
+const ListCart = ({data, isLoading, error, refetch}) => {
   // const {data, isLoading, error} = useFetch("/cart")
   
   return (
@@ -20,7 +20,7 @@ const ListCart = ({data, isLoading, error}) => {
           keyExtractor={(item) => item._id}
           data={data}
           renderItem={({item}) => (
-          <CartCard item={item} />
+          <CartCard item={item} refetch={refetch} />
           )}
           contentContainerStyle={{rowGap: SIZES.small}}
         />

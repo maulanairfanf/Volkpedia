@@ -9,12 +9,12 @@ import { COLORS, SIZES } from '../constants/index'
 import { rupiah } from '../utils/currency'
 
 const Cart = ({navigation}) => {
-  const {data, isLoading, error} = useFetch("/cart")
+  const {data, isLoading, error, refetch} = useFetch("/cart")
   const [loadingButton, setIsLoadingButton] = useState(false)
   const [countProduct, setCountProduct] = useState(0)
 
-  const handleCheckout = () => {
-    console.log('checkout')
+  const handleUpdate = () => {
+    
 
   }
   useEffect(() => {
@@ -34,7 +34,7 @@ const Cart = ({navigation}) => {
         </View>
       </View>
       <ScrollView >
-        <ListCart data={data.products} isLoading={isLoading} error={error}/>
+        <ListCart data={data.products} isLoading={isLoading} error={error} refetch={refetch}/>
       </ScrollView>
       <View style={styles.containerButtonCheckout}>
         <Text style={styles.textCheckoutInfo}>Checkout Product  ({countProduct})</Text>
