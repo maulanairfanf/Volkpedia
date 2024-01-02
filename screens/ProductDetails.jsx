@@ -1,23 +1,43 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, Pressable, ActivityIndicator, ToastAndroid } from 'react-native'
 import React, {useState} from 'react'
 import styles from './productDetails.style'
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons"
 import { COLORS, SIZES } from '../constants'
 import { useRoute } from '@react-navigation/native'
 import { rupiah } from '../utils/currency'
+import { api } from "../hooks/axios"
 
 const ProductDetails = ({navigation}) => {
   const route = useRoute()
   const {item} = route.params;
+  const [isLoading, setIsLoading] = useState(false)
 
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(1)
 
   const increment = () => {
     setCount((prevCount) => prevCount + 1)
   }
+
   const decrement = () => {
     setCount((prevCount) => prevCount - 1)
   }
+
+  async function handleAddToCart ()  {
+    setIsLoading(true)
+    console.log('item', item)
+    const params = {
+      productId: item._id,
+      quantity: count
+    }
+    try {
+      const response = await api.post('/cart', params)
+      if (response) ToastAndroid.show('Succes Add To Cart', ToastAndroid.SHORT);
+    } catch (error) {
+      console.log('error', error)
+    }
+    setIsLoading(false)
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.upperRow}>
@@ -55,20 +75,33 @@ const ProductDetails = ({navigation}) => {
             <Text style={styles.ratingText}>(4.9)</Text>
           </View>
           <View style={styles.rating} >
-            <TouchableOpacity onPress={() => increment()}>
-              <SimpleLineIcons
-                name="plus"
-                size={20}
-                
-              />
-            </TouchableOpacity>
-            <Text style={styles.ratingText}>{count}</Text>
-            <TouchableOpacity onPress={() => decrement()}>
-              <SimpleLineIcons
-                name="minus"
-                size={20}
-              />
-            </TouchableOpacity>
+            {item.quantity ? 
+              <Text style={{color: COLORS.red}}>
+                Stock Empty
+              </Text> :
+            <>
+              <Pressable 
+                onPress={() => increment()}
+                disabled={count >= item.stock}
+              >
+                <SimpleLineIcons
+                  name="plus"
+                  size={20}
+                  
+                  />
+              </Pressable>
+              <Text style={styles.ratingText}>{count}</Text>
+              <Pressable 
+                onPress={() => decrement()}
+                disabled={count <= 1}
+              >
+                <SimpleLineIcons
+                  name="minus"
+                  size={20}
+                  />
+              </Pressable>
+            </>
+            }
           </View>
         </View>
         <View style={styles.descriptionWrapper}>
@@ -100,14 +133,19 @@ const ProductDetails = ({navigation}) => {
           </View>
         </View>
         <View style={styles.cartRow}>
-          <TouchableOpacity onPress={() => {}} style={styles.cartBtn}>
-            <Text style={styles.cartTitle}>
-              BUY NOW
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}} style={styles.addCart}>
+          <Pressable 
+            onPress={() => handleAddToCart()} 
+            style={[styles.cartBtn]}
+            disabled={isLoading}
+          >
+            {isLoading ? 
+              <ActivityIndicator size={SIZES.xLarge + 1} color={COLORS.lightWhite} /> :
+              <Text style={styles.cartTitle}> Add To Cart</Text>
+            }
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate("Cart")} style={styles.addCart}>
             <Fontisto name="shopping-bag" size={24} color={COLORS.lightWhite} />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </View>

@@ -10,8 +10,8 @@ const ProductList = () => {
 
   if (isLoading) {
     return (
-      <View>
-      <ActivityIndicator 
+      <View style={styles.container}>
+        <ActivityIndicator 
           size={SIZES.xxLarge}
           color={COLORS.primary}
         />
