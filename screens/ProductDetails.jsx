@@ -64,15 +64,12 @@ const ProductDetails = ({navigation}) => {
         </View>
         <View style={styles.ratingRow}>
           <View style={styles.rating} >
-            {[1,2,3,4,5].map((index) => (
               <Ionicons
-                key={index}
                 name="star"
                 size={24}
                 color="gold"
               />
-            ))}
-            <Text style={styles.ratingText}>(4.9)</Text>
+            <Text style={styles.ratingText}>(4.9) |   10 Selling</Text>
           </View>
           <View style={styles.rating} >
             {item.quantity ? 
@@ -90,7 +87,7 @@ const ProductDetails = ({navigation}) => {
                   
                   />
               </Pressable>
-              <Text style={styles.ratingText}>{count}</Text>
+              <Text style={[styles.ratingText, {paddingHorizontal: SIZES.xSmall}]}>{count}</Text>
               <Pressable 
                 onPress={() => decrement()}
                 disabled={count <= 1}
@@ -104,6 +101,19 @@ const ProductDetails = ({navigation}) => {
             }
           </View>
         </View>
+
+        <View style={styles.detailProduct}>
+          <Text style={styles.description}>
+            Information Product
+          </Text>
+          <Text style={styles.textDetailProduct}>
+            Stock : {item.stock}
+          </Text>
+          <Text style={styles.textDetailProduct}>
+            Condition : New
+          </Text>
+        </View>
+
         <View style={styles.descriptionWrapper}>
           <Text style={styles.description}>
             Description

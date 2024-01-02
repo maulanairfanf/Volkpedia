@@ -50,15 +50,15 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     marginHorizontal: SIZES.large,
+    marginBottom: SIZES.large
   },
   ratingText: {
     color: COLORS.gray,
     fontFamily: "medium",
-    paddingHorizontal: SIZES.xSmall,
+    // paddingHorizontal: SIZES.xSmall,
     paddingTop: 5
   },
   descriptionWrapper: {
-    marginTop: SIZES.large,
     marginHorizontal: SIZES.large
   },
   description: {
@@ -124,6 +124,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     
+  },
+  detailProduct: {
+    marginBottom: SIZES.small,
+    marginHorizontal: 20,
+  },
+  textDetailProduct: {
+    fontSize: SIZES.small,
+    fontFamily: "regular"
   }
 })
 
