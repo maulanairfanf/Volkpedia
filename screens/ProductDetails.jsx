@@ -109,9 +109,6 @@ const ProductDetails = ({navigation}) => {
           <Text style={styles.textDetailProduct}>
             Stock : {item.stock}
           </Text>
-          <Text style={styles.textDetailProduct}>
-            Condition : New
-          </Text>
         </View>
 
         <View style={styles.descriptionWrapper}>
