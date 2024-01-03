@@ -20,7 +20,6 @@ const SearchScreens = () => {
     }
     if (payload !== '') {
       params = { ...params, query: payload }
-      console.log('params', params)
       try {
         const response = await api.get("/product", {params})
         console.log('response', response)

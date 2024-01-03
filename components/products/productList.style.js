@@ -2,19 +2,21 @@ import { COLORS, SIZES } from "../../constants"
 import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
-  loadingContainer: {
+  container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
-    alignContent: "center"
+    paddingTop: SIZES.xxLarge - 10,
   },
-  container: {
-    alignItems: "center",
-    paddingTop: SIZES.xxLarge,
-    paddingBottom: SIZES.xxLarge
+  loading: {
+    flex: 1, 
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  separator: {
-    height: 16
+  footerText: {
+    flex: 1, 
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: SIZES.medium
   }
 })
 
