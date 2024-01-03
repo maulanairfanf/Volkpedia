@@ -4,7 +4,7 @@ import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { useCallback,useState} from 'react';
 import BottomTabNavigation from './navigation/BottomTabNavigation';
-import { Cart, ProductDetails, NewProducts, SignIn, SignUp } from './screens';
+import { Cart, ProductDetails, NewProducts, SignIn, SignUp, Otp } from './screens';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ActivityIndicator } from 'react-native';
 
@@ -65,6 +65,13 @@ export const Layout = () => {
             <Stack.Screen
               name="SignIn"
               component={SignIn}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="OtpScreen"
+              component={Otp}
               options={{
                 headerShown: false,
               }}

@@ -4,10 +4,8 @@ import styles from './signIn.style'
 import { Feather } from "@expo/vector-icons"
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { COLORS, SIZES } from '../constants';
-import * as SecureStore from 'expo-secure-store';
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../context/AuthContext';
-import {BASE_URL} from '@env'
 
 const SignIn = () => {
   const navigation = useNavigation()
@@ -26,7 +24,7 @@ const SignIn = () => {
     try {
       await onLogin(email,password)
     } catch (error) {
-      ToastAndroid.show('Invalid Credential', ToastAndroid.SHORT);
+      ToastAndroid.show('Invalid Credential', ToastAndroid.MEDIUM);
       setIsLoading(false)
       throw error
     }

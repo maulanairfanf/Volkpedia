@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
   loading: {
     flex: 1, 
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginVertical: SIZES.medium
   },
   footerText: {
     flex: 1, 

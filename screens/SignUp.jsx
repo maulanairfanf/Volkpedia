@@ -23,11 +23,16 @@ const SignIn = () => {
 
   const handleRegister = async () => {
     setIsLoading(true)
+    const item = {
+      email: email, 
+      password: password,
+      fullName: fullName
+    }
     try {
       const response = await onRegister(email,password, fullName)
-      if (response) navigation.navigate('SignIn')
+      if (response) navigation.navigate('OtpScreen', {item: item})
     } catch (error) {
-      ToastAndroid.show('Email already used', ToastAndroid.SHORT);
+      ToastAndroid.show('Email already used', ToastAndroid.MEDIUM);
       throw error
     }
     setIsLoading(false)

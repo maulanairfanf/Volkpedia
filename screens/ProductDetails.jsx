@@ -30,9 +30,9 @@ const ProductDetails = ({navigation}) => {
     }
     try {
       const response = await api.post('/cart', params)
-      if (response) ToastAndroid.show('Succes Add To Cart', ToastAndroid.SHORT);
+      if (response) ToastAndroid.show('Succes Add To Cart', ToastAndroid.MEDIUM);
     } catch (error) {
-      if (error) ToastAndroid.show('Failed Add Product To Cart', ToastAndroid.SHORT);
+      if (error) ToastAndroid.show('Failed Add Product To Cart', ToastAndroid.MEDIUM);
       console.log('error', error)
     }
     setIsLoading(false)

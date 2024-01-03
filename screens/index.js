@@ -6,6 +6,7 @@ import ProductDetails from "./ProductDetails";
 import NewProducts from "./NewProducts";
 import SignIn from "./SignIn";
 import SignUp from './SignUp'
+import Otp from './Otp'
 export {
   Home,
   SearchScreens,
@@ -14,5 +15,6 @@ export {
   ProductDetails,
   NewProducts,
   SignIn,
-  SignUp
+  SignUp,
+  Otp
 }

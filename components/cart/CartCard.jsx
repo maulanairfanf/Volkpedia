@@ -10,9 +10,9 @@ const CartCard = ({item, refetch}) => {
     try {
       const response = await api.delete("/cart/" + item.productId._id)
       refetch()
-      if (response) ToastAndroid.show('Succes Remove Product', ToastAndroid.SHORT);
+      if (response) ToastAndroid.show('Succes Remove Product', ToastAndroid.MEDIUM);
     } catch (error) {
-      if (error) ToastAndroid.show('Failed Remove Product', ToastAndroid.SHORT);
+      if (error) ToastAndroid.show('Failed Remove Product', ToastAndroid.MEDIUM);
       console.log('error', error)
     }
   }
