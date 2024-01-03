@@ -1,4 +1,4 @@
-import Search from "./Search";
+import SearchScreens from "./Search";
 import Home from "./Home";
 import Profile from "./Profile";
 import Cart from "./Cart";
@@ -8,7 +8,7 @@ import SignIn from "./SignIn";
 import SignUp from './SignUp'
 export {
   Home,
-  Search,
+  SearchScreens,
   Profile,
   Cart,
   ProductDetails,

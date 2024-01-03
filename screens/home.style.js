@@ -7,18 +7,13 @@ const styles = StyleSheet.create({
     fontSize: 40
   },
   appBarWrapper: {
-    marginHorizontal: 10,
+    marginHorizontal: SIZES.small,
     marginTop: SIZES.small
   },
   appBar: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
-  },
-  location: {
-    fontFamily: "semibold",
-    fontSize: SIZES.medium,
-    color: COLORS.gray
   },
   cartCount: {
     position: "absolute",
@@ -36,7 +31,7 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     fontSize: 10,
     color: COLORS.lightWhite
-  }
+  },
 })
 
 export default styles

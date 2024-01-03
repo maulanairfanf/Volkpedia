@@ -15,7 +15,7 @@ const NewProducts = ({navigation}) => {
           </TouchableOpacity>
           <Text style={styles.heading} >Products</Text>
         </View>
-      <ScrollView>
+        <ScrollView>
           <ProductList />
         </ScrollView>
       </View>

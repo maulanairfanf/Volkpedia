@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Home, Profile, Search } from '../screens'
+import { Home, Profile, SearchScreens } from '../screens'
 import { Ionicons } from "@expo/vector-icons"
 import { COLORS } from "../constants/index"
 
@@ -40,7 +40,7 @@ const BottomTabNavigation = () => {
       />
       <Tab.Screen 
         name="Search" 
-        component={Search}
+        component={SearchScreens}
         options={{
           tabBarIcon: ({focused}) => {
             return <Ionicons 
