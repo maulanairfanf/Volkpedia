@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
   productTitle: {
     fontSize: SIZES.medium,
     fontFamily: "bold",
-    color: COLORS.primary
+    color: COLORS.primary,
+    height: SIZES.xLarge
   },
   supplier:{
     fontSize: SIZES.small,

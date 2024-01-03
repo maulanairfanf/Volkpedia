@@ -18,8 +18,11 @@ const Search = ({mode, handleSearch}) => {
   }
   return (
     <View style={styles.searchContainer}>
-      <TouchableOpacity>
-        <Feather name="search" size={20} style={styles.searchIcon} />
+      <TouchableOpacity onPressIn={() => handleClick()}>
+        <Feather 
+          name="search" size={20} 
+          style={styles.searchIcon} 
+       />
       </TouchableOpacity>
       <View style={styles.searchWrapper}>
         <TextInput

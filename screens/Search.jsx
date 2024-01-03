@@ -10,19 +10,27 @@ import { Search } from '../components/reusable'
 
 const SearchScreens = () => {
   const [searchResults, setSearchResults] = useState([]);
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1)
 
   const handleSearch = async (payload) => {
-    console.log('payload', payload)
-    // if (payload !== '') {
-    //   try {
-    //     const response = await api.get("/products/search/" + payload)
-    //     setSearchResults(response.data)
-    //   } catch (error) {
-    //     setSearchResults([])
-    //   }
-    // } else {
-    //   setSearchResults([])
-    // }
+    let params = {
+      limit: limit,
+      page: page
+    }
+    if (payload !== '') {
+      params = { ...params, query: payload }
+      console.log('params', params)
+      try {
+        const response = await api.get("/product", {params})
+        console.log('response', response)
+        setSearchResults(response.data.data)
+      } catch (error) {
+        setSearchResults([])
+      }
+    } else {
+      setSearchResults([])
+    }
   }
 
   return (
@@ -50,7 +58,7 @@ const SearchScreens = () => {
             scrollEnabled={false}
             data={searchResults}
             renderItem={({item}) => (<SearchTile  item={item} />)}
-            style={{marginHorizontal: 12}}
+            style={{marginHorizontal: SIZES.small, marginTop: SIZES.large}}
           />
         </ScrollView>
       )}
