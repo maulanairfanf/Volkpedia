@@ -69,7 +69,7 @@ const ProductDetails = ({navigation}) => {
                 size={24}
                 color="gold"
               />
-            <Text style={styles.ratingText}>(4.9) |   10 Selling</Text>
+            <Text style={styles.ratingText}>({item.rating}) |   {item.selling} Selling</Text>
           </View>
           <View style={styles.rating} >
             {item.quantity ? 
