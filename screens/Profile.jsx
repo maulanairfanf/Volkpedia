@@ -6,7 +6,6 @@ import {MaterialIcons, Ionicons} from "@expo/vector-icons"
 import { COLORS } from '../constants'
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../context/AuthContext'
-import * as SecureStore from 'expo-secure-store';
 
 const Profile = () => {
   const navigation = useNavigation()
@@ -31,14 +30,14 @@ const Profile = () => {
           </View>
         </View>
         <View style={styles.containerMenu}>
-          <View style={styles.borderMenu}>
+          {/* <View style={styles.borderMenu}>
             <TouchableOpacity  style={styles.menu}>
               <Ionicons name="heart-outline" size={24} color={COLORS.gray}/>
               <Text style={styles.nameMenu}>
                 Like
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View style={styles.borderMenu}>
             <TouchableOpacity style={[styles.menu, {color: COLORS.red}]} onPress={() => handleLogout()}>
               <MaterialIcons name="logout" size={24} color={COLORS.red}/>

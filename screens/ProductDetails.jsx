@@ -46,9 +46,9 @@ const ProductDetails = ({navigation}) => {
           <Ionicons name="chevron-back-circle" size={30} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {}}>
+        {/* <TouchableOpacity onPress={() => {}}>
           <Ionicons name="heart" size={30} color={COLORS.primary}/>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <Image 
         source={{uri: item.image }}

@@ -74,16 +74,16 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "bold",
     fontSize: SIZES.large,
-    width: 200
+    width: 200,
   },
   price:{
     padding: 2,
     fontFamily: "semibold",
-    fontSize: SIZES.medium
+    fontSize: SIZES.medium,
   },
   priceWrapper:{
     backgroundColor: COLORS.secondary,
-    borderRadius: SIZES.large
+    borderRadius: SIZES.large,
   },
   location: {
     flexDirection: "row",
