@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, Pressable, ActivityIndicator, ToastAndroid } from 'react-native'
+import { View, Text, TouchableOpacity, Image, Pressable, ActivityIndicator } from 'react-native'
 import React, {useState} from 'react'
 import styles from './productDetails.style'
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons"
@@ -6,6 +6,7 @@ import { COLORS, SIZES } from '../constants'
 import { useRoute } from '@react-navigation/native'
 import { rupiah } from '../utils/currency'
 import { api } from "../hooks/axios"
+import Toast from 'react-native-simple-toast';
 
 const ProductDetails = ({navigation}) => {
   const route = useRoute()
@@ -30,9 +31,9 @@ const ProductDetails = ({navigation}) => {
     }
     try {
       const response = await api.post('/cart', params)
-      if (response) ToastAndroid.show('Succes Add To Cart', ToastAndroid.MEDIUM);
+      if (response) Toast.show('Succes Add To Cart', Toast.MEDIUM);
     } catch (error) {
-      if (error) ToastAndroid.show('Failed Add Product To Cart', ToastAndroid.MEDIUM);
+      if (error) Toast.show('Failed Add Product To Cart', Toast.MEDIUM);
       console.log('error', error)
     }
     setIsLoading(false)

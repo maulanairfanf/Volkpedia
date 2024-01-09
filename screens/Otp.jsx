@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, Text, ToastAndroid, ActivityIndicator, Pressable } from 'react-native';
+import { View, TextInput, Text, ActivityIndicator, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './otp.style';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { api } from '../hooks/axios';
 import { COLORS, SIZES } from '../constants';
 import { useAuth } from '../context/AuthContext';
-
-
-
+import Toast from 'react-native-simple-toast';
 const OtpInput = () => {
   const navigation = useNavigation()
   const route = useRoute()
@@ -35,7 +33,7 @@ const OtpInput = () => {
     try {
       await onRegister(item.email, item.password, item.fullName)
     } catch (error) {
-      ToastAndroid.show('Email already used', ToastAndroid.MEDIUM);
+      Toast.show('Email already used', Toast.MEDIUM);
     }
     setIsLoading(false)
   }
@@ -52,7 +50,7 @@ const OtpInput = () => {
         navigation.navigate('SignIn')
       }
     } catch (error) {
-      ToastAndroid.show('Wrong OTP, Try Again', ToastAndroid.LONG);
+      Toast.show('Wrong OTP, Try Again', Toast.LONG);
     }
     setIsLoading(false)
   }

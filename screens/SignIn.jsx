@@ -1,4 +1,4 @@
-import { View, Text,  Image, TextInput,  Pressable, ActivityIndicator, Alert, TouchableOpacity, ToastAndroid } from 'react-native'
+import { View, Text,  Image, TextInput,  Pressable, ActivityIndicator, TouchableOpacity } from 'react-native'
 import React, { useState} from 'react'
 import styles from './signIn.style'
 import { Feather } from "@expo/vector-icons"
@@ -6,6 +6,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { COLORS, SIZES } from '../constants';
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../context/AuthContext';
+import Toast from 'react-native-simple-toast';
 
 const SignIn = () => {
   const navigation = useNavigation()
@@ -24,7 +25,7 @@ const SignIn = () => {
     try {
       await onLogin(email,password)
     } catch (error) {
-      ToastAndroid.show('Invalid Credential', ToastAndroid.MEDIUM);
+      Toast.show('Invalid Credential', Toast.MEDIUM);
       setIsLoading(false)
       throw error
     }

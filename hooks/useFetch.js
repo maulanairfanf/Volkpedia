@@ -10,7 +10,6 @@ const useFetch = (endpoint) => {
     setIsLoading(true);
     try {
       const response =  await api.get(endpoint)
-      console.log('response', response)
       setData(response.data.data);
     } catch (error) {
       setError(error);

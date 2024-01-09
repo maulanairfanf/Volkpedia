@@ -61,7 +61,6 @@ export const AuthProvider = ({children}) => {
   const login = async (email, password) => {
     try {
       const response = await api.post('/auth/signin', {email, password})
-      console.log('response',response)
       setConfig(response.data.data.token)
       return response
     } catch (error) {

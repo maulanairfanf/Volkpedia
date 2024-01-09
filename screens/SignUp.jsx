@@ -1,4 +1,4 @@
-import { View, Text,  Image, TextInput,  Pressable, ActivityIndicator, Alert, TouchableOpacity, ToastAndroid } from 'react-native'
+import { View, Text,  Image, TextInput,  Pressable, ActivityIndicator, TouchableOpacity } from 'react-native'
 import React, { useState} from 'react'
 import styles from './signUp.style'
 import { Feather } from "@expo/vector-icons"
@@ -6,6 +6,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { COLORS, SIZES } from '../constants';
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../context/AuthContext';
+import Toast from 'react-native-simple-toast';
 
 const SignIn = () => {
   const navigation = useNavigation()
@@ -32,7 +33,7 @@ const SignIn = () => {
       const response = await onRegister(email,password, fullName)
       if (response) navigation.navigate('OtpScreen', {item: item})
     } catch (error) {
-      ToastAndroid.show('Email already used', ToastAndroid.MEDIUM);
+      Toast.show('Email already used', Toast.MEDIUM);
       throw error
     }
     setIsLoading(false)
