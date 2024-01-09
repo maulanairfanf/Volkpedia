@@ -71,7 +71,7 @@ export const AuthProvider = ({children}) => {
       const response = await api.post('/auth/signup', {email, password, fullName})
       return response
     } catch (error) {
-      return error
+      throw error
     }
   }
 
@@ -81,8 +81,7 @@ export const AuthProvider = ({children}) => {
       setConfig(response.data.data.token)
       return response
     } catch (error) {
-      console.log('error', error)
-      return error
+      throw error
     }
   }
 

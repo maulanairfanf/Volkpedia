@@ -4,7 +4,6 @@ import { Ionicons } from "@expo/vector-icons"
 import styles from './cart.style'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ListCart from '../components/cart/ListCart'
-import useFetch from '../hooks/useFetch'
 import { COLORS, SIZES } from '../constants/index'
 import { rupiah } from '../utils/currency'
 import { api } from '../hooks/axios'

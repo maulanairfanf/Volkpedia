@@ -34,7 +34,6 @@ const SignIn = () => {
       if (response) navigation.navigate('OtpScreen', {item: item})
     } catch (error) {
       Toast.show('Email already used', Toast.MEDIUM);
-      throw error
     }
     setIsLoading(false)
   }

@@ -6,11 +6,11 @@ import { COLORS } from '../../constants'
 import { rupiah } from '../../utils/currency'
 import { api } from '../../hooks/axios'
 import Toast from 'react-native-simple-toast';
-const CartCard = ({item, refetch}) => {
+const CartCard = ({item, fetchData}) => {
   async function deleteOneCart () {
     try {
       const response = await api.delete("/cart/" + item.productId._id)
-      refetch()
+      fetchData()
       if (response) Toast.show('Succes Remove Product', Toast.MEDIUM);
     } catch (error) {
       if (error) Toast.show('Failed Remove Product', Toast.MEDIUM);

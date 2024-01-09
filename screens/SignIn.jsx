@@ -26,9 +26,8 @@ const SignIn = () => {
       await onLogin(email,password)
     } catch (error) {
       Toast.show('Invalid Credential', Toast.MEDIUM);
-      setIsLoading(false)
-      throw error
     }
+    setIsLoading(false)
   }
 
 

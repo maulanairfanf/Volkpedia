@@ -21,9 +21,11 @@ const Home = () => {
         <View style={styles.appBar}>
           <Search mode="redirect" />
           <View style={{ alignItems: "flex-end" }} >
+            { userState?.countCart  &&
             <View style={styles.cartCount} >
               <Text style={styles.cartNumber} > {userState?.countCart} </Text>
             </View>
+           }
             <TouchableOpacity onPressIn={() => navigation.navigate("Cart")}>
               <Fontisto name="shopping-bag" size={24} />
             </TouchableOpacity>
