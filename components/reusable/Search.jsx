@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import {Keyboard, View, Text, TouchableOpacity, TextInput } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import styles from './search.style'
 import { Feather, Ionicons } from '@expo/vector-icons'
@@ -8,29 +8,50 @@ import { COLORS, SIZES } from '../../constants'
 const Search = ({mode, handleSearch}) => {
   const navigation = useNavigation()
   const [query, setQuery] = useState()
+  const [keyboardStatus, setKeyboardStatus] = useState('');
 
-  const handleClick = () => {
-    if (mode === "redirect") {
-      navigation.navigate("Search")
-    } else {
-      handleSearch(query)
-    }
+  const handleClickSearch = () => {
+    if (mode === "search") handleSearch(query)
   }
+
+  const handleClickRedirect = () => {
+    if (mode === "redirect") navigation.navigate("Search")
+  }
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardStatus(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardStatus(false);
+    });
+
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!keyboardStatus && query !== "") handleClickSearch()
+  },[keyboardStatus])
   return (
     <View style={styles.searchContainer}>
-      <TouchableOpacity onPressIn={() => handleClick()}>
+      {/* <TouchableOpacity onPress={() => handleClickSearch()}> */}
         <Feather 
           name="search" size={20} 
           style={styles.searchIcon} 
        />
-      </TouchableOpacity>
+      {/* </TouchableOpacity> */}
       <View style={styles.searchWrapper}>
         <TextInput
           style={styles.searchInput}
           value={query}
           onChangeText={setQuery}
-          onPressIn={() => handleClick()}
+          onPressIn={() => handleClickRedirect()}
           placeholder="What are you looking for"
+          onSubmitEditing={Keyboard.dismiss}
         />
       </View>
     </View>

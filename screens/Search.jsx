@@ -14,6 +14,7 @@ const SearchScreens = () => {
   const [page, setPage] = useState(1)
 
   const handleSearch = async (payload) => {
+    console.log('payload', payload)
     let params = {
       limit: limit,
       page: page
@@ -21,7 +22,7 @@ const SearchScreens = () => {
     if (payload !== '') {
       params = { ...params, query: payload }
       try {
-        const response = await api.get("/product", {params})
+        const response = await api("/product", {params})
         console.log('response', response)
         setSearchResults(response.data.data)
       } catch (error) {
@@ -40,9 +41,9 @@ const SearchScreens = () => {
           mode="search"
           placeholder="What are you looking for"
         />
-        <TouchableOpacity>
+        {/* <TouchableOpacity> */}
           <Feather name="filter" size={26} style={{marginLeft: SIZES.small}} />
-        </TouchableOpacity>
+        {/* </TouchableOpacity> */}
       </View>
       {searchResults.length === 0 ? (
         <View style={{flex: 1}}>

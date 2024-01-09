@@ -7,16 +7,32 @@ import ListCart from '../components/cart/ListCart'
 import useFetch from '../hooks/useFetch'
 import { COLORS, SIZES } from '../constants/index'
 import { rupiah } from '../utils/currency'
+import { api } from '../hooks/axios'
 
 const Cart = ({navigation}) => {
-  const {data, isLoading, error, refetch} = useFetch("/cart")
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [loadingButton, setIsLoadingButton] = useState(false)
   const [countProduct, setCountProduct] = useState(0)
 
-  const handleUpdate = () => {
-    
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const response =  await api.get("/cart")
+      setData(response.data.data);
+    } catch (error) {
+      setError(error);
+      setData([])
+    }
+    setIsLoading(false);
+  };
 
-  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
   useEffect(() => {
     if (data && data.products) {
       setCountProduct(data.products.length)
@@ -33,8 +49,8 @@ const Cart = ({navigation}) => {
           <Text style={styles.title} >Cart</Text>
         </View>
       </View>
-      <ScrollView >
-        <ListCart data={data.products} isLoading={isLoading} error={error} refetch={refetch}/>
+      <ScrollView style={{marginBottom: 150}}>
+        <ListCart data={data.products} isLoading={isLoading} error={error} fetchData={fetchData}/>
       </ScrollView>
       <View style={styles.containerButtonCheckout}>
         <Text style={styles.textCheckoutInfo}>Checkout Product  ({countProduct})</Text>

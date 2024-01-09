@@ -25,9 +25,8 @@ const screenOptions = {
 
 const BottomTabNavigation = () => {
   const isFocused = useIsFocused();
-  const { authState,getProfile } = useAuth()
+  const { getProfile } = useAuth()
   useEffect(() => {
-    console.log("isFocused", isFocused)
     if(isFocused) getProfile()
   },[isFocused])
   return (

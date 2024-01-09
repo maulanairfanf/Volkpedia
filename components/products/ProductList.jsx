@@ -34,10 +34,6 @@ const ProductList = () => {
     fetchData(page)
   },[page])
 
-  useEffect(() => {
-    console.log('always fetch')
-  },[])
-
     const renderFooter = () => (
       <View style={styles.footerText}>
         {isLoading && <ActivityIndicator />}
@@ -47,7 +43,7 @@ const ProductList = () => {
 
 
   function fetchMoreData () {
-    console.log('fetchMoreData')
+    // console.log('fetchMoreData')
     if (page < countPage) {
       setPage((prev) => prev + 1)
     }

@@ -20,10 +20,12 @@ const styles = StyleSheet.create({
     marginLeft: SIZES.xSmall
   },
   containerButtonCheckout :{
-    marginHorizontal: 20,
+    padding: 20,
     position: "absolute",
-    bottom: 10,
-    width: SIZES.width -40 ,
+    bottom: 0,
+    width: SIZES.width ,
+    backgroundColor: COLORS.lightWhite,
+    zIndex: 100
   },
   containerDetailCheckout: {
     flexDirection: "row",

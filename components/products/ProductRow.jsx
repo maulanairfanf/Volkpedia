@@ -3,10 +3,28 @@ import React, { useEffect, useState } from 'react'
 import { COLORS, SIZES } from '../../constants'
 import ProductCard from './ProductCard'
 import styles from './productRow.style'
-import useFetch from '../../hooks/useFetch'
+import { api } from '../../hooks/axios'
 
 const ProductRow = () => {
-  const {data, isLoading, error} = useFetch("/product?limit=4&page=1")
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const response =  await api.get("/product?limit=4&page=1")
+      setData(response.data.data);
+    } catch (error) {
+      setError(error);
+      setData([])
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   
   return (
     <View style={styles.container}>

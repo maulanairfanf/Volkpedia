@@ -3,10 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { COLORS, SIZES } from '../../constants'
 import CartCard from './CartCard'
 import styles from './listCart.style'
-// import useFetch from '../../hooks/useFetch'
 
-const ListCart = ({data, isLoading, error, refetch}) => {
-  // const {data, isLoading, error} = useFetch("/cart")
+const ListCart = ({data, isLoading, error, fetchData}) => {
   
   return (
     <View style={styles.container}>
@@ -20,7 +18,7 @@ const ListCart = ({data, isLoading, error, refetch}) => {
           keyExtractor={(item) => item._id}
           data={data}
           renderItem={({item}) => (
-          <CartCard item={item} refetch={refetch} />
+          <CartCard item={item} fetchData={fetchData} />
           )}
           contentContainerStyle={{rowGap: SIZES.small}}
         />

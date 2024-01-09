@@ -15,7 +15,6 @@ const Home = () => {
   const navigation = useNavigation()
   const { userState } = useAuth();
 
-
   return (
     <SafeAreaView>
       <View style={styles.appBarWrapper}>

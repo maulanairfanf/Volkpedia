@@ -5,6 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 const AuthContext = createContext({})
 const TOKEN_KEY = "token"
 
+
 export const useAuth = () => {
   return useContext(AuthContext)
 }
@@ -36,10 +37,12 @@ export const AuthProvider = ({children}) => {
           isLoading: false,
           user: null
         })
+        logout()
       }
     }
     loadToken()
   },[])
+
 
   const setConfig = async (token) => {
 
