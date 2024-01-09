@@ -6,7 +6,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { COLORS, SIZES } from '../constants';
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../context/AuthContext';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-root-toast';
 
 const SignIn = () => {
   const navigation = useNavigation()

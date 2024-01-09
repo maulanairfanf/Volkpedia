@@ -7,7 +7,7 @@ import { COLORS, SIZES } from '../../constants'
 
 const Search = ({mode, handleSearch}) => {
   const navigation = useNavigation()
-  const [query, setQuery] = useState()
+  const [query, setQuery] = useState("")
   const [keyboardStatus, setKeyboardStatus] = useState('');
 
   const handleClickSearch = () => {

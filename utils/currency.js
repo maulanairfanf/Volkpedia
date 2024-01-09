@@ -4,7 +4,7 @@ export const rupiah = (number)=>{
       style: "currency",
       currency: "IDR"
     }).format(number);
-    return result.split(',')[0]
+    return result.replace("Rp", '').split(',')[0]
   } else {
     return 0
   }

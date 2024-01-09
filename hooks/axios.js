@@ -12,10 +12,11 @@ const api = axios.create({
 api.interceptors.response.use(async (response) => {
     return response
   }, async function (error) {
-    if (error.response.status === 401 || error.response.status === 500) {
-      await SecureStore.deleteItemAsync(TOKEN_KEY) 
-      api.defaults.headers.common['Authorization'] = ''
-    }
+    console.log('error', error)
+    // if (error.response.status === 401 || error.response.status === 500) {
+    //   await SecureStore.deleteItemAsync(TOKEN_KEY) 
+    //   api.defaults.headers.common['Authorization'] = ''
+    // }
     return Promise.reject(error);
 });
 

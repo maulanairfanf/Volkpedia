@@ -81,6 +81,7 @@ export const AuthProvider = ({children}) => {
       setConfig(response.data.data.token)
       return response
     } catch (error) {
+      console.log('error', error)
       throw error
     }
   }

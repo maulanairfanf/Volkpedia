@@ -6,7 +6,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { api } from '../hooks/axios';
 import { COLORS, SIZES } from '../constants';
 import { useAuth } from '../context/AuthContext';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-root-toast';
 const OtpInput = () => {
   const navigation = useNavigation()
   const route = useRoute()

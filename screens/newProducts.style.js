@@ -4,12 +4,9 @@ import { COLORS, SIZES } from "../constants"
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: SIZES.xxLarge,
     backgroundColor: COLORS.lightWhite
-  },
-  wrapper: {
-    flex: 1,
-    backgroundColor: COLORS.lightWhite,
-  },
+  }, 
   upperRow:{
     marginHorizontal: SIZES.small,
     flexDirection: "row",

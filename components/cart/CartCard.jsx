@@ -5,7 +5,7 @@ import {Ionicons} from "@expo/vector-icons"
 import { COLORS } from '../../constants'
 import { rupiah } from '../../utils/currency'
 import { api } from '../../hooks/axios'
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-root-toast';
 const CartCard = ({item, fetchData}) => {
   async function deleteOneCart () {
     try {

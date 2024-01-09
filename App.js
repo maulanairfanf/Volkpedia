@@ -7,7 +7,7 @@ import BottomTabNavigation from './navigation/BottomTabNavigation';
 import { Cart, ProductDetails, NewProducts, SignIn, SignUp, Otp } from './screens';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ActivityIndicator } from 'react-native';
-  import { useRoute } from '@react-navigation/native'
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 const Stack = createNativeStackNavigator()
 
@@ -38,11 +38,13 @@ export default function App() {
   }
 
   return (
+    <RootSiblingParent>
     <NavigationContainer >
       <AuthProvider>
         <Layout></Layout>
       </AuthProvider>
     </NavigationContainer>
+    </RootSiblingParent>
   );
 }
 

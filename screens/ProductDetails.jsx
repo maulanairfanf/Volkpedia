@@ -6,7 +6,7 @@ import { COLORS, SIZES } from '../constants'
 import { useRoute } from '@react-navigation/native'
 import { rupiah } from '../utils/currency'
 import { api } from "../hooks/axios"
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-root-toast';
 
 const ProductDetails = ({navigation}) => {
   const route = useRoute()

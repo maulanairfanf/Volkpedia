@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    paddingTop: SIZES.xxLarge - 10,
+    paddingTop: 30
   },
   loading: {
     flex: 1, 

@@ -1,9 +1,10 @@
-import { FlatList, View, SafeAreaView, ActivityIndicator, Text, Pressable } from 'react-native'
+import { FlatList, View,  ActivityIndicator, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { COLORS, SIZES } from '../../constants'
 import styles from './productList.style'
 import ProductCard from './ProductCard'
 import { api } from '../../hooks/axios'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const ProductList = () => {
   const [data, setData] = useState([]);
@@ -50,7 +51,7 @@ const ProductList = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <FlatList 
         data={data}
         numColumns={2}
@@ -61,7 +62,7 @@ const ProductList = () => {
         onEndReachedThreshold={0.2}
         ListFooterComponent={renderFooter}
         />
-    </SafeAreaView>
+    </View>
   )
 }
 
