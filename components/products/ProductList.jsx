@@ -21,7 +21,6 @@ const ProductList = () => {
     }
     try {
       const response =  await api.get("/product", {params})
-      console.log('response', response.data)
       setData([...data,...response.data.data]);
       setCountPage(response.data.pages)
     } catch (error) {
@@ -34,6 +33,10 @@ const ProductList = () => {
   useEffect(() => {
     fetchData(page)
   },[page])
+
+  useEffect(() => {
+    console.log('always fetch')
+  },[])
 
     const renderFooter = () => (
       <View style={styles.footerText}>

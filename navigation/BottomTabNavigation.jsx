@@ -1,9 +1,11 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Home, Profile, SearchScreens } from '../screens'
 import { Ionicons } from "@expo/vector-icons"
 import { COLORS } from "../constants/index"
+import { useAuth } from '../context/AuthContext'
+import { useIsFocused } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator()
 
@@ -22,7 +24,12 @@ const screenOptions = {
 }
 
 const BottomTabNavigation = () => {
-
+  const isFocused = useIsFocused();
+  const { authState,getProfile } = useAuth()
+  useEffect(() => {
+    console.log("isFocused", isFocused)
+    if(isFocused) getProfile()
+  },[isFocused])
   return (
     <Tab.Navigator screenOptions={screenOptions} >
       <Tab.Screen 

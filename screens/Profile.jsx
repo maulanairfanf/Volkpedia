@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './profile.style'
 import {MaterialIcons, Ionicons} from "@expo/vector-icons"
@@ -9,12 +9,13 @@ import { useAuth } from '../context/AuthContext'
 
 const Profile = () => {
   const navigation = useNavigation()
-  const { onLogout } = useAuth();
+  const { onLogout, userState } = useAuth();
 
   const handleLogout = async () => {
     await onLogout()
     navigation.navigate("SignIn")
   }
+
 
   return (
     <SafeAreaView>
@@ -24,9 +25,9 @@ const Profile = () => {
             source={{uri: "https://th.bing.com/th/id/OIP.zP1mlHnV1bpgODW8gvQSFQHaIP?rs=1&pid=ImgDetMain" }}
             style={styles.image}
             />
-          <Text style={styles.name}>Maulana Irfan Firdian</Text>
+          <Text style={styles.name}>{userState?.fullName}</Text>
           <View style={styles.containerEmail}>
-            <Text style={styles.email}>maulanairfanf@gmail.com</Text>
+            <Text style={styles.email}>{userState?.email}</Text>
           </View>
         </View>
         <View style={styles.containerMenu}>

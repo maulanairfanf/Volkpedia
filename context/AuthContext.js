@@ -13,24 +13,28 @@ export const AuthProvider = ({children}) => {
   const [authState, setAuthState] = useState({
     token: null,
     authenticated: null,
-    isLoading: true
+    isLoading: true,
   })
+
+  const [userState, setUserState] = useState({})
 
   useEffect(() => {
     const loadToken = async () => {
       const token = await SecureStore.getItemAsync(TOKEN_KEY)
       if (token) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        await getProfile()
         setAuthState({
           token: token,
           authenticated: true,
-          isLoading: false
+          isLoading: false,
         })
       } else {
         setAuthState({
           token: null,
           authenticated: false,
-          isLoading: false
+          isLoading: false,
+          user: null
         })
       }
     }
@@ -43,10 +47,20 @@ export const AuthProvider = ({children}) => {
     
     await SecureStore.setItemAsync(TOKEN_KEY, token)
     setAuthState({
+      ...authState,
       token: token,
       authenticated: true,
       isLoading: false
     })
+  }
+
+  const getProfile = async () => {
+    try {
+      const response = await api.get('/me')
+      setUserState(response.data.data)
+      return response.data.data
+    } catch (error) {
+    }
   }
 
   const register = async (email, password, fullName) => {
@@ -69,14 +83,14 @@ export const AuthProvider = ({children}) => {
     }
   }
 
-  const logout = async (email, password) => {
-  
+  const logout = async () => {
     await SecureStore.deleteItemAsync(TOKEN_KEY)
     api.defaults.headers.common['Authorization'] = ''
     
     setAuthState({
       token: null,
-      authenticated: false
+      authenticated: false,
+      isLoading: false
     })
   }
 
@@ -85,7 +99,9 @@ export const AuthProvider = ({children}) => {
     onRegister: register,
     onLogin: login,
     onLogout: logout,
-    authState
+    getProfile,
+    authState,
+    userState
   }
 
   return (
