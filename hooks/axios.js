@@ -1,11 +1,11 @@
 import axios from "axios";
-import {BASE_URL} from '@env'
+import {EXPO_PUBLIC_API_URL} from '@env'
 import * as SecureStore from 'expo-secure-store';
 
 
 const TOKEN_KEY = "token"
 const api = axios.create({
-  baseURL: BASE_URL
+  baseURL: EXPO_PUBLIC_API_URL
 })
 
 
