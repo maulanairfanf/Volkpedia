@@ -10,10 +10,12 @@ import ProductRow from '../components/products/ProductRow'
 import { useNavigation } from '@react-navigation/native'
 import { Search } from '../components/reusable'
 import { useAuth } from '../context/AuthContext'
+import { useSelector } from 'react-redux'
 
 const Home = () => {
   const navigation = useNavigation()
-  const { userState } = useAuth();
+  const userState = useSelector((state) => state.user)
+  // const { userState } = useAuth();
 
   return (
     <SafeAreaView>

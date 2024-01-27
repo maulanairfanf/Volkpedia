@@ -1,6 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { api } from '../hooks/axios'
 import * as SecureStore from 'expo-secure-store';
+import { useSelector, useDispatch } from 'react-redux';
+import { userLogin, userLogout } from "../redux/auth/actions"; 
+import { addUser } from "../redux/user/actions";
 
 const AuthContext = createContext({})
 const TOKEN_KEY = "token"
@@ -11,13 +14,16 @@ export const useAuth = () => {
 }
 
 export const AuthProvider = ({children}) => {
-  const [authState, setAuthState] = useState({
-    token: null,
-    authenticated: null,
-    isLoading: true,
-  })
+  const reduxAuth = useSelector((state) => state.auth);
+  const dispatch = useDispatch()
 
-  const [userState, setUserState] = useState({})
+  // const [authState, setAuthState] = useState({
+  //   token: null,
+  //   authenticated: null,
+  //   isLoading: true,
+  // })
+
+  // const [userState, setUserState] = useState({})
 
   useEffect(() => {
     const loadToken = async () => {
@@ -25,42 +31,46 @@ export const AuthProvider = ({children}) => {
       if (token) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         await getProfile()
-        setAuthState({
-          token: token,
-          authenticated: true,
-          isLoading: false,
-        })
+        dispatch(
+          userLogin(token)
+        )
+        // setAuthState({
+          // token: token,
+          // authenticated: true,
+          // isLoading: false,
+        // })
       } else {
-        setAuthState({
-          token: null,
-          authenticated: false,
-          isLoading: false,
-          user: null
-        })
+        // setAuthState({
+        //   token: null,
+        //   authenticated: false,
+        //   isLoading: false,
+        // })
         logout()
       }
+      console.log('reduxAuth', reduxAuth)
     }
     loadToken()
   },[])
 
 
   const setConfig = async (token) => {
-
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    
     await SecureStore.setItemAsync(TOKEN_KEY, token)
-    setAuthState({
-      ...authState,
-      token: token,
-      authenticated: true,
-      isLoading: false
-    })
+    dispatch(
+      userLogin(token)
+    )
+    // setAuthState({
+    //   ...authState,
+    //   token: token,
+    //   authenticated: true,
+    //   isLoading: false
+    // })
   }
 
   const getProfile = async () => {
     try {
       const response = await api.get('/me')
-      setUserState(response.data.data)
+      dispatch(addUser(response.data.data))
       return response.data.data
     } catch (error) {
     }
@@ -90,11 +100,14 @@ export const AuthProvider = ({children}) => {
     await SecureStore.deleteItemAsync(TOKEN_KEY)
     api.defaults.headers.common['Authorization'] = ''
     
-    setAuthState({
-      token: null,
-      authenticated: false,
-      isLoading: false
-    })
+    // setAuthState({
+    //   token: null,
+    //   authenticated: false,
+    //   isLoading: false
+    // })
+    dispatch(
+      userLogout()
+    )
   }
 
 
@@ -103,8 +116,8 @@ export const AuthProvider = ({children}) => {
     onLogin: login,
     onLogout: logout,
     getProfile,
-    authState,
-    userState
+    // authState,
+    // userState
   }
 
   return (

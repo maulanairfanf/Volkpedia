@@ -8,6 +8,8 @@ import { Cart, ProductDetails, NewProducts, SignIn, SignUp, Otp } from './screen
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ActivityIndicator } from 'react-native';
 import { RootSiblingParent } from 'react-native-root-siblings';
+import { Provider, useSelector } from 'react-redux';
+import store from './redux/store';
 
 const Stack = createNativeStackNavigator()
 
@@ -39,18 +41,21 @@ export default function App() {
 
   return (
     <RootSiblingParent>
-    <NavigationContainer >
-      <AuthProvider>
-        <Layout></Layout>
-      </AuthProvider>
-    </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer >
+          <AuthProvider>
+            <Layout></Layout>
+          </AuthProvider>
+        </NavigationContainer>
+      </Provider>
     </RootSiblingParent>
   );
 }
 
 
 export const Layout = () => {
-  const { authState } = useAuth()
+  const authState = useSelector((state) => state.auth);
+  // const { authState } = useAuth()
 
   return (
       <Stack.Navigator>

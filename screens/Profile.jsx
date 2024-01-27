@@ -6,10 +6,12 @@ import {MaterialIcons, Ionicons} from "@expo/vector-icons"
 import { COLORS } from '../constants'
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../context/AuthContext'
+import { useSelector } from 'react-redux'
 
 const Profile = () => {
   const navigation = useNavigation()
-  const { onLogout, userState } = useAuth();
+  const { onLogout } = useAuth();
+  const userState = useSelector((state) => state.user)
 
   const handleLogout = async () => {
     await onLogout()

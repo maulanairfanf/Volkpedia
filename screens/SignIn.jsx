@@ -7,6 +7,7 @@ import { COLORS, SIZES } from '../constants';
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../context/AuthContext';
 import Toast from 'react-native-root-toast';
+import { useSelector } from 'react-redux';
 
 const SignIn = () => {
   const navigation = useNavigation()
@@ -14,7 +15,8 @@ const SignIn = () => {
   const [password, setPassword] = useState('password')
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const { authState, onLogin } = useAuth();
+  const authState = useSelector((state) => state.auth);
+  const { onLogin } = useAuth();
 
   const toggleShowPassword = () => { 
     setShowPassword(!showPassword); 
