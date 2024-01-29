@@ -1,10 +1,9 @@
 import { FlatList, View,  ActivityIndicator, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { COLORS, SIZES } from '../../constants'
+import { SIZES } from '../../constants'
 import styles from './productList.style'
 import ProductCard from './ProductCard'
-import { api } from '../../hooks/axios'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { useFetch } from '../../hooks/fetch'
 
 const ProductList = () => {
   const [data, setData] = useState([]);
@@ -21,7 +20,7 @@ const ProductList = () => {
       limit: limit,
     }
     try {
-      const response =  await api.get("/product", {params})
+      const response =  await useFetch("get","/product", {params})
       setData([...data,...response.data.data]);
       setCountPage(response.data.pages)
     } catch (error) {
@@ -44,7 +43,6 @@ const ProductList = () => {
 
 
   function fetchMoreData () {
-    // console.log('fetchMoreData')
     if (page < countPage) {
       setPage((prev) => prev + 1)
     }

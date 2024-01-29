@@ -4,12 +4,12 @@ import styles from './cartCard.style'
 import {Ionicons} from "@expo/vector-icons"
 import { COLORS } from '../../constants'
 import { rupiah } from '../../utils/currency'
-import { api } from '../../hooks/axios'
 import Toast from 'react-native-root-toast';
+import { useFetch } from '../../hooks/fetch'
 const CartCard = ({item, fetchData}) => {
   async function deleteOneCart () {
     try {
-      const response = await api.delete("/cart/" + item.productId._id)
+      const response = await useFetch("delete", "/cart/" + item.productId._id)
       fetchData()
       if (response) Toast.show('Succes Remove Product', Toast.MEDIUM);
     } catch (error) {

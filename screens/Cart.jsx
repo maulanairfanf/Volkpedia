@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import ListCart from '../components/cart/ListCart'
 import { COLORS, SIZES } from '../constants/index'
 import { rupiah } from '../utils/currency'
-import { api } from '../hooks/axios'
+import { useFetch } from '../hooks/fetch'
 
 const Cart = ({navigation}) => {
   const [data, setData] = useState([]);
@@ -18,7 +18,7 @@ const Cart = ({navigation}) => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response =  await api.get("/cart")
+      const response =  await useFetch("get", "/cart")
       setData(response.data.data);
     } catch (error) {
       setError(error);

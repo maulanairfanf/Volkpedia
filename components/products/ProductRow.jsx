@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { COLORS, SIZES } from '../../constants'
 import ProductCard from './ProductCard'
 import styles from './productRow.style'
-import { api } from '../../hooks/axios'
+import { useFetch } from '../../hooks/fetch'
 
 const ProductRow = () => {
   const [data, setData] = useState([]);
@@ -13,7 +13,7 @@ const ProductRow = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response =  await api.get("/product?limit=4&page=1")
+      const response = await useFetch("get","/product", {limit: 4, page: 1})
       setData(response.data.data);
     } catch (error) {
       setError(error);
