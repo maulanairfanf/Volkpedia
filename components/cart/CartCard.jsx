@@ -6,11 +6,14 @@ import { COLORS } from '../../constants'
 import { rupiah } from '../../utils/currency'
 import Toast from 'react-native-root-toast';
 import { useFetch } from '../../hooks/fetch'
+import { fetchCart } from '../../redux/cart/actions'
+import { useDispatch } from 'react-redux'
 const CartCard = ({item, fetchData}) => {
+  const dispatch = useDispatch()
   async function deleteOneCart () {
     try {
       const response = await useFetch("delete", "/cart/" + item.productId._id)
-      fetchData()
+      dispatch(fetchCart());
       if (response) Toast.show('Succes Remove Product', Toast.MEDIUM);
     } catch (error) {
       if (error) Toast.show('Failed Remove Product', Toast.MEDIUM);

@@ -12,8 +12,12 @@ const ProductRow = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
+    const params = {
+      limit: 4, 
+      page: 1
+    }
     try {
-      const response = await useFetch("get","/product", {limit: 4, page: 1})
+      const response = await useFetch("get","/product", {params})
       setData(response.data.data);
     } catch (error) {
       setError(error);

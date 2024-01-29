@@ -1,26 +1,22 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { api } from '../hooks/axios'
 import * as SecureStore from 'expo-secure-store';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { userLogin, userLogout } from "../redux/auth/actions"; 
 import { addUser } from "../redux/user/actions";
 
 const AuthContext = createContext({})
-const TOKEN_KEY = "token"
-
 
 export const useAuth = () => {
   return useContext(AuthContext)
 }
 
 export const AuthProvider = ({children}) => {
-  const reduxAuth = useSelector((state) => state.auth);
   const dispatch = useDispatch()
 
   useEffect(() => {
     const loadToken = async () => {
-      const token = await SecureStore.getItemAsync(TOKEN_KEY)
-      console.log('token', token)
+      const token = await SecureStore.getItemAsync("token")
       if (token) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         await getProfile()
@@ -28,61 +24,25 @@ export const AuthProvider = ({children}) => {
           userLogin(token)
         )
       } else {
-        logout()
+         dispatch(
+          userLogout()
+        )
       }
-      console.log('reduxAuth', reduxAuth)
     }
     loadToken()
   },[])
 
-
-  const setConfig = async (token) => {
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    await SecureStore.setItemAsync(TOKEN_KEY, token)
-    dispatch(
-      userLogin(token)
-    )
-  }
-
   const getProfile = async () => {
     try {
       const response = await api.get('/me')
-      console.log('getProfile', response.data.data)
       dispatch(addUser(response.data.data))
       return response.data.data
     } catch (error) {
     }
   }
 
-  const register = async (email, password, fullName) => {
-    try {
-      const response = await api.post('/auth/signup', {email, password, fullName})
-      return response
-    } catch (error) {
-      throw error
-    }
-  }
-  const logout = async () => {
-    await SecureStore.deleteItemAsync(TOKEN_KEY)
-    api.defaults.headers.common['Authorization'] = ''
-    
-    // setAuthState({
-    //   token: null,
-    //   authenticated: false,
-    //   isLoading: false
-    // })
-    dispatch(
-      userLogout()
-    )
-  }
-
-
   const value = {
-    onRegister: register,
-    onLogout: logout,
     getProfile,
-    // authState,
-    // userState
   }
 
   return (

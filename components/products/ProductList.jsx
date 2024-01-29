@@ -21,6 +21,7 @@ const ProductList = () => {
     }
     try {
       const response =  await useFetch("get","/product", {params})
+      console.log('response', response.data.data)
       setData([...data,...response.data.data]);
       setCountPage(response.data.pages)
     } catch (error) {
@@ -57,7 +58,7 @@ const ProductList = () => {
         contentContainerStyle={{ gap: SIZES.small }}
         columnWrapperStyle={{ gap: SIZES.small }}
         onEndReached={fetchMoreData}
-        onEndReachedThreshold={0.2}
+        onEndReachedThreshold={0.1}
         ListFooterComponent={renderFooter}
         />
     </View>

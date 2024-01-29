@@ -8,12 +8,14 @@ import {
 import thunk from 'redux-thunk';
 import authReducer from './auth/reducer';
 import userReducer from './user/reducer';
+import cartReducer from './cart/reducer';
 
 const composerEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducers = combineReducers({
   auth: authReducer,
-  user: userReducer
+  user: userReducer,
+  cart: cartReducer
 });
 const store = createStore(
   rootReducers,
