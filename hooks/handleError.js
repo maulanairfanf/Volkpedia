@@ -6,7 +6,7 @@ const handleError = async (error) => {
     api.defaults.headers.common['Authorization'] = ''
   }
 
-  return error;
+  throw error;
 };
 
 export default handleError;

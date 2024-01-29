@@ -5,8 +5,8 @@ import { Feather } from "@expo/vector-icons"
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { COLORS, SIZES } from '../constants';
 import { useNavigation } from '@react-navigation/native'
-import { useAuth } from '../context/AuthContext';
 import Toast from 'react-native-root-toast';
+import { useFetch } from '../hooks/fetch'
 
 const SignIn = () => {
   const navigation = useNavigation()
@@ -16,7 +16,6 @@ const SignIn = () => {
 
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const { onRegister } = useAuth();
 
   const toggleShowPassword = () => { 
     setShowPassword(!showPassword); 
@@ -30,7 +29,7 @@ const SignIn = () => {
       fullName: fullName
     }
     try {
-      const response = await onRegister(email,password, fullName)
+      const response = await useFetch('post', '/auth/signup', {email,password, fullName})
       if (response) navigation.navigate('OtpScreen', {item: item})
     } catch (error) {
       Toast.show('Email already used', Toast.MEDIUM);
