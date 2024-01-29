@@ -5,9 +5,11 @@ import { Feather } from "@expo/vector-icons"
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { COLORS, SIZES } from '../constants';
 import { useNavigation } from '@react-navigation/native'
-import { useAuth } from '../context/AuthContext';
 import Toast from 'react-native-root-toast';
 import { useSelector } from 'react-redux';
+import { useDispatch } from "react-redux"
+import { userLogin } from '../redux/auth/actions';
+import { useFetch } from '../hooks/fetch';
 
 const SignIn = () => {
   const navigation = useNavigation()
@@ -16,7 +18,7 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const authState = useSelector((state) => state.auth);
-  const { onLogin } = useAuth();
+  const dispatch = useDispatch()
 
   const toggleShowPassword = () => { 
     setShowPassword(!showPassword); 
@@ -25,7 +27,12 @@ const SignIn = () => {
   const handleLogin = async () => {
     setIsLoading(true)
     try {
-      await onLogin(email,password)
+      const response = await useFetch('post', '/auth/signin', {email, password})
+      if (response) {
+        dispatch(
+          userLogin(response.data.data.token)
+        )
+      }
     } catch (error) {
       console.log('error', error)
       Toast.show('Invalid Credential', Toast.MEDIUM);

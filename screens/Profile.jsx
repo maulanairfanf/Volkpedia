@@ -1,23 +1,27 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React, { useContext, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './profile.style'
-import {MaterialIcons, Ionicons} from "@expo/vector-icons"
+import {MaterialIcons} from "@expo/vector-icons"
 import { COLORS } from '../constants'
 import { useNavigation } from '@react-navigation/native'
-import { useAuth } from '../context/AuthContext'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import * as SecureStore from 'expo-secure-store';
+import { api } from '../hooks/axios'
+import { userLogout } from '../redux/auth/actions'
 
 const Profile = () => {
   const navigation = useNavigation()
-  const { onLogout } = useAuth();
   const userState = useSelector((state) => state.user)
+  const dispatch = useDispatch()
 
   const handleLogout = async () => {
-    await onLogout()
+    await SecureStore.deleteItemAsync("token")
+    api.defaults.headers.common['Authorization'] = ''
+    dispatch(
+      userLogout()
+    )
     navigation.navigate("SignIn")
   }
-
 
   return (
     <SafeAreaView>
@@ -27,9 +31,9 @@ const Profile = () => {
             source={{uri: "https://th.bing.com/th/id/OIP.zP1mlHnV1bpgODW8gvQSFQHaIP?rs=1&pid=ImgDetMain" }}
             style={styles.image}
             />
-          <Text style={styles.name}>{userState?.fullName}</Text>
+          <Text style={styles.name}>{userState?.data.fullName}</Text>
           <View style={styles.containerEmail}>
-            <Text style={styles.email}>{userState?.email}</Text>
+            <Text style={styles.email}>{userState?.data.email}</Text>
           </View>
         </View>
         <View style={styles.containerMenu}>

@@ -17,34 +17,17 @@ export const AuthProvider = ({children}) => {
   const reduxAuth = useSelector((state) => state.auth);
   const dispatch = useDispatch()
 
-  // const [authState, setAuthState] = useState({
-  //   token: null,
-  //   authenticated: null,
-  //   isLoading: true,
-  // })
-
-  // const [userState, setUserState] = useState({})
-
   useEffect(() => {
     const loadToken = async () => {
       const token = await SecureStore.getItemAsync(TOKEN_KEY)
+      console.log('token', token)
       if (token) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         await getProfile()
         dispatch(
           userLogin(token)
         )
-        // setAuthState({
-          // token: token,
-          // authenticated: true,
-          // isLoading: false,
-        // })
       } else {
-        // setAuthState({
-        //   token: null,
-        //   authenticated: false,
-        //   isLoading: false,
-        // })
         logout()
       }
       console.log('reduxAuth', reduxAuth)
@@ -59,17 +42,12 @@ export const AuthProvider = ({children}) => {
     dispatch(
       userLogin(token)
     )
-    // setAuthState({
-    //   ...authState,
-    //   token: token,
-    //   authenticated: true,
-    //   isLoading: false
-    // })
   }
 
   const getProfile = async () => {
     try {
       const response = await api.get('/me')
+      console.log('getProfile', response.data.data)
       dispatch(addUser(response.data.data))
       return response.data.data
     } catch (error) {
@@ -84,18 +62,6 @@ export const AuthProvider = ({children}) => {
       throw error
     }
   }
-
-  const login = async (email, password) => {
-    try {
-      const response = await api.post('/auth/signin', {email, password})
-      setConfig(response.data.data.token)
-      return response
-    } catch (error) {
-      console.log('error', error)
-      throw error
-    }
-  }
-
   const logout = async () => {
     await SecureStore.deleteItemAsync(TOKEN_KEY)
     api.defaults.headers.common['Authorization'] = ''
@@ -113,7 +79,6 @@ export const AuthProvider = ({children}) => {
 
   const value = {
     onRegister: register,
-    onLogin: login,
     onLogout: logout,
     getProfile,
     // authState,

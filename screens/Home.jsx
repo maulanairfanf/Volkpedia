@@ -15,7 +15,6 @@ import { useSelector } from 'react-redux'
 const Home = () => {
   const navigation = useNavigation()
   const userState = useSelector((state) => state.user)
-  // const { userState } = useAuth();
 
   return (
     <SafeAreaView>
@@ -23,9 +22,9 @@ const Home = () => {
         <View style={styles.appBar}>
           <Search mode="redirect" />
           <View style={{ alignItems: "flex-end" }} >
-            { userState?.countCart ?
+            { userState?.data.countCart ?
             <View style={styles.cartCount} >
-              <Text style={styles.cartNumber} > {userState?.countCart} </Text>
+              <Text style={styles.cartNumber} > {userState?.data.countCart} </Text>
             </View> : ''
            }
             <TouchableOpacity onPressIn={() => navigation.navigate("Cart")}>

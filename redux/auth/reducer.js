@@ -1,5 +1,6 @@
 import { USER_LOGIN, USER_LOGOUT } from './constants';
 
+
 let initialState = {
   token: null,
   authenticated: null,

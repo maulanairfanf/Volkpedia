@@ -1,5 +1,4 @@
 import { USER_LOGIN, USER_LOGOUT } from './constants';
-import * as SecureStore from 'expo-secure-store';
 
 export function userLogin(token) {
   return {
