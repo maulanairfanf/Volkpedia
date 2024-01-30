@@ -1,4 +1,3 @@
-import handleError from './handleError';
 import { api } from './axios'
 import * as SecureStore from 'expo-secure-store';
 
@@ -11,7 +10,6 @@ export async function useFetch(method, endpoint, params) {
     }
     return response
   } catch (error) {
-    console.log('error', error)
-    return handleError(error)
+    throw error
   }
 }

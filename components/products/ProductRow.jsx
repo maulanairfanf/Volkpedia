@@ -18,7 +18,7 @@ const ProductRow = () => {
     }
     try {
       const response = await useFetch("get","/product", {params})
-      setData(response.data.data);
+      if (response) setData(response.data.data);
     } catch (error) {
       setError(error);
       setData([])
