@@ -14,7 +14,6 @@ const SearchScreens = () => {
   const [page, setPage] = useState(1)
 
   const handleSearch = async (payload) => {
-    console.log('payload', payload)
     let params = {
       limit: limit,
       page: page

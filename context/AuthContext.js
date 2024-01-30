@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { api } from '../hooks/axios'
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
@@ -7,9 +7,9 @@ import { fetchGetProfile } from "../redux/user/actions";
 
 const AuthProvider = ({children}) => {
   const dispatch = useDispatch()
+  const [isSet, setIsSet] = useState(false)
 
   useEffect(() => {
-    console.log('authContext')
     const resInterceptor = (response) => {
       return response;
     };
@@ -29,7 +29,8 @@ const AuthProvider = ({children}) => {
       resInterceptor,
       errInterceptor
     );
-
+    
+    setIsSet(true)
     return () => api.interceptors.response.eject(interceptor);
   }, []);
 
@@ -51,12 +52,7 @@ const AuthProvider = ({children}) => {
     loadToken()
   },[])
 
-  return (
-    <>
-      {children}
-    </>
-  )
+  return isSet && children
 }
 
-export default api;
 export { AuthProvider };

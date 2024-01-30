@@ -57,7 +57,7 @@ const ProductList = () => {
         contentContainerStyle={{ gap: SIZES.small }}
         columnWrapperStyle={{ gap: SIZES.small }}
         onEndReached={fetchMoreData}
-        onEndReachedThreshold={0.2}
+        // onEndReachedThreshold={0.2}
         ListFooterComponent={renderFooter}
         keyExtractor={(item, index) => index}
         />

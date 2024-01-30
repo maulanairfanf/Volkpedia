@@ -3,9 +3,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Home, Profile, SearchScreens } from '../screens'
 import { Ionicons } from "@expo/vector-icons"
 import { COLORS } from "../constants/index"
-import { useIsFocused } from "@react-navigation/native";
-// import { fetchGetProfile } from '../redux/user/actions'
-// import { useDispatch } from 'react-redux'
+// import { useIsFocused } from "@react-navigation/native";
+import { fetchGetProfile } from '../redux/user/actions'
+import { useDispatch } from 'react-redux'
 
 const Tab = createBottomTabNavigator()
 
@@ -24,15 +24,15 @@ const screenOptions = {
 }
 
 const BottomTabNavigation = () => {
-  // const dispatch = useDispatch()
-  const isFocused = useIsFocused();
+  const dispatch = useDispatch()
+  // const isFocused = useIsFocused();
   useEffect(() => {
-    if(isFocused) {
-      // dispatch(
-      //   fetchGetProfile()
-      // )
-    }
-  },[isFocused])
+    dispatch(
+      fetchGetProfile()
+      )
+      // if(isFocused) {
+      // }
+  },[])
   return (
     <Tab.Navigator screenOptions={screenOptions} >
       <Tab.Screen 
