@@ -9,7 +9,6 @@ import Heading from '../components/home/Heading'
 import ProductRow from '../components/products/ProductRow'
 import { useNavigation } from '@react-navigation/native'
 import { Search } from '../components/reusable'
-import { useAuth } from '../context/AuthContext'
 import { useSelector } from 'react-redux'
 
 const Home = () => {

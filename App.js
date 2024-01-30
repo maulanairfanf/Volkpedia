@@ -5,7 +5,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import { useCallback, useEffect} from 'react';
 import BottomTabNavigation from './navigation/BottomTabNavigation';
 import { Cart, ProductDetails, NewProducts, SignIn, SignUp, Otp } from './screens';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import { ActivityIndicator } from 'react-native';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { Provider, useSelector } from 'react-redux';

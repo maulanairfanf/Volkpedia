@@ -1,11 +1,11 @@
-import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Home, Profile, SearchScreens } from '../screens'
 import { Ionicons } from "@expo/vector-icons"
 import { COLORS } from "../constants/index"
-import { useAuth } from '../context/AuthContext'
 import { useIsFocused } from "@react-navigation/native";
+import { fetchGetProfile } from '../redux/user/actions'
+import { useDispatch } from 'react-redux'
 
 const Tab = createBottomTabNavigator()
 
@@ -24,10 +24,14 @@ const screenOptions = {
 }
 
 const BottomTabNavigation = () => {
+  const dispatch = useDispatch()
   const isFocused = useIsFocused();
-  const { getProfile } = useAuth()
   useEffect(() => {
-    if(isFocused) getProfile()
+    if(isFocused) {
+      dispatch(
+        fetchGetProfile()
+      )
+    }
   },[isFocused])
   return (
     <Tab.Navigator screenOptions={screenOptions} >
