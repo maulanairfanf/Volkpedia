@@ -38,7 +38,6 @@ const ProductDetails = ({navigation}) => {
       dispatch(fetchCart())
     } catch (error) {
       if (error) Toast.show('Failed Add Product To Cart', Toast.MEDIUM);
-      console.log('error', error)
     }
     setIsLoading(false)
   }

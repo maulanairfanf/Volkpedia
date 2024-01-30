@@ -17,7 +17,6 @@ const CartCard = ({item, fetchData}) => {
       if (response) Toast.show('Succes Remove Product', Toast.MEDIUM);
     } catch (error) {
       if (error) Toast.show('Failed Remove Product', Toast.MEDIUM);
-      console.log('error', error)
     }
   }
   return (

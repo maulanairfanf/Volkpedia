@@ -31,7 +31,6 @@ export const fetchCart = () => {
 
     try {
       const response = await useFetch("get", "/cart")
-      console.log('response', response)
       dispatch(
         successFetchingCart({
           cart: response.data.data.products,

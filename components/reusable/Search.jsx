@@ -1,9 +1,8 @@
-import {Keyboard, View, Text, TouchableOpacity, TextInput } from 'react-native'
+import {Keyboard, View,TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import styles from './search.style'
-import { Feather, Ionicons } from '@expo/vector-icons'
-import { COLORS, SIZES } from '../../constants'
+import { Feather } from '@expo/vector-icons'
 
 const Search = ({mode, handleSearch}) => {
   const navigation = useNavigation()
@@ -34,7 +33,7 @@ const Search = ({mode, handleSearch}) => {
   }, []);
 
   useEffect(() => {
-    if (!keyboardStatus && query !== "") handleClickSearch()
+    if (!keyboardStatus) handleClickSearch()
   },[keyboardStatus])
   return (
     <View style={styles.searchContainer}>

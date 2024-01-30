@@ -4,8 +4,8 @@ import { Home, Profile, SearchScreens } from '../screens'
 import { Ionicons } from "@expo/vector-icons"
 import { COLORS } from "../constants/index"
 import { useIsFocused } from "@react-navigation/native";
-import { fetchGetProfile } from '../redux/user/actions'
-import { useDispatch } from 'react-redux'
+// import { fetchGetProfile } from '../redux/user/actions'
+// import { useDispatch } from 'react-redux'
 
 const Tab = createBottomTabNavigator()
 
@@ -24,13 +24,13 @@ const screenOptions = {
 }
 
 const BottomTabNavigation = () => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const isFocused = useIsFocused();
   useEffect(() => {
     if(isFocused) {
-      dispatch(
-        fetchGetProfile()
-      )
+      // dispatch(
+      //   fetchGetProfile()
+      // )
     }
   },[isFocused])
   return (

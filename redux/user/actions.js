@@ -13,12 +13,10 @@ export const fetchGetProfile = () => {
 
     try {
       const response = await useFetch('get', '/me')
-      console.log('response', response)
       dispatch(
         addUser(response.data.data)
       );
     } catch (error) {
-      console.log('error', error)
     }
   };
 };

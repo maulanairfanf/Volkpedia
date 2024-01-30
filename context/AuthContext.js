@@ -9,6 +9,7 @@ const AuthProvider = ({children}) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    console.log('authContext')
     const resInterceptor = (response) => {
       return response;
     };

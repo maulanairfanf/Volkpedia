@@ -34,7 +34,6 @@ const SignIn = () => {
         )
       }
     } catch (error) {
-      console.log('error', error)
       Toast.show('Invalid Credential', Toast.MEDIUM);
     }
     setIsLoading(false)

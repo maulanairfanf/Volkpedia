@@ -23,7 +23,6 @@ const SearchScreens = () => {
       params = { ...params, query: payload }
       try {
         const response = await api.get("/product", {params})
-        console.log('response', response)
         setSearchResults(response.data.data)
       } catch (error) {
         setSearchResults([])
