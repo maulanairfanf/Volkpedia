@@ -5,8 +5,10 @@ import { Ionicons, SimpleLineIcons, MaterialCommunityIcons, Fontisto } from "@ex
 import { COLORS, SIZES } from '../constants'
 import { useRoute } from '@react-navigation/native'
 import { rupiah } from '../utils/currency'
-import { api } from "../hooks/axios"
 import Toast from 'react-native-root-toast';
+import { useFetch } from '../hooks/fetch'
+import { useDispatch } from 'react-redux'
+import { fetchCart } from '../redux/cart/actions'
 
 const ProductDetails = ({navigation}) => {
   const route = useRoute()
@@ -14,6 +16,7 @@ const ProductDetails = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const [count, setCount] = useState(1)
+  const dispatch = useDispatch()
 
   const increment = () => {
     setCount((prevCount) => prevCount + 1)
@@ -30,11 +33,11 @@ const ProductDetails = ({navigation}) => {
       quantity: count
     }
     try {
-      const response = await api.post('/cart', params)
+      const response = await useFetch('post','/cart', params)
       if (response) Toast.show('Succes Add To Cart', Toast.MEDIUM);
+      dispatch(fetchCart())
     } catch (error) {
       if (error) Toast.show('Failed Add Product To Cart', Toast.MEDIUM);
-      console.log('error', error)
     }
     setIsLoading(false)
   }

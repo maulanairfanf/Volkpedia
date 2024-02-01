@@ -14,7 +14,6 @@ const SearchScreens = () => {
   const [page, setPage] = useState(1)
 
   const handleSearch = async (payload) => {
-    console.log('payload', payload)
     let params = {
       limit: limit,
       page: page
@@ -23,7 +22,6 @@ const SearchScreens = () => {
       params = { ...params, query: payload }
       try {
         const response = await api.get("/product", {params})
-        console.log('response', response)
         setSearchResults(response.data.data)
       } catch (error) {
         setSearchResults([])

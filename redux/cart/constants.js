@@ -1,0 +1,3 @@
+export const START_FETCHING_CART = 'redux/cart/START_FETCHING_CART';
+export const SUCCESS_FETCHING_CART = 'redux/cart/SUCCESS_FETCHING_CART';
+export const ERROR_FETCHING_CART = 'redux/cart/ERROR_FETCHING_CART';

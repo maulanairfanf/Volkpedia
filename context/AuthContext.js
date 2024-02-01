@@ -1,115 +1,58 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from '../hooks/axios'
 import * as SecureStore from 'expo-secure-store';
+import { useDispatch } from 'react-redux';
+import { userLogin, userLogout } from "../redux/auth/actions"; 
+import { fetchGetProfile } from "../redux/user/actions";
 
-const AuthContext = createContext({})
-const TOKEN_KEY = "token"
+const AuthProvider = ({children}) => {
+  const dispatch = useDispatch()
+  const [isSet, setIsSet] = useState(false)
 
+  useEffect(() => {
+    const resInterceptor = (response) => {
+      return response;
+    };
 
-export const useAuth = () => {
-  return useContext(AuthContext)
-}
+    const errInterceptor = async (error) => {
+      if (error.response.status === 401 || error.response.status === 500) {
+        await SecureStore.deleteItemAsync("token")
+        api.defaults.headers.common['Authorization'] = ''
+        dispatch(
+          userLogout()
+        )
+      }
+      return Promise.reject();
+    };
 
-export const AuthProvider = ({children}) => {
-  const [authState, setAuthState] = useState({
-    token: null,
-    authenticated: null,
-    isLoading: true,
-  })
-
-  const [userState, setUserState] = useState({})
+    const interceptor = api.interceptors.response.use(
+      resInterceptor,
+      errInterceptor
+    );
+    
+    setIsSet(true)
+    return () => api.interceptors.response.eject(interceptor);
+  }, []);
 
   useEffect(() => {
     const loadToken = async () => {
-      const token = await SecureStore.getItemAsync(TOKEN_KEY)
+      const token = await SecureStore.getItemAsync("token")
       if (token) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        await getProfile()
-        setAuthState({
-          token: token,
-          authenticated: true,
-          isLoading: false,
-        })
+        dispatch(
+          userLogin(token),
+          fetchGetProfile()
+        )
       } else {
-        setAuthState({
-          token: null,
-          authenticated: false,
-          isLoading: false,
-          user: null
-        })
-        logout()
+         dispatch(
+          userLogout()
+        )
       }
     }
     loadToken()
   },[])
 
-
-  const setConfig = async (token) => {
-
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    
-    await SecureStore.setItemAsync(TOKEN_KEY, token)
-    setAuthState({
-      ...authState,
-      token: token,
-      authenticated: true,
-      isLoading: false
-    })
-  }
-
-  const getProfile = async () => {
-    try {
-      const response = await api.get('/me')
-      setUserState(response.data.data)
-      return response.data.data
-    } catch (error) {
-    }
-  }
-
-  const register = async (email, password, fullName) => {
-    try {
-      const response = await api.post('/auth/signup', {email, password, fullName})
-      return response
-    } catch (error) {
-      throw error
-    }
-  }
-
-  const login = async (email, password) => {
-    try {
-      const response = await api.post('/auth/signin', {email, password})
-      setConfig(response.data.data.token)
-      return response
-    } catch (error) {
-      console.log('error', error)
-      throw error
-    }
-  }
-
-  const logout = async () => {
-    await SecureStore.deleteItemAsync(TOKEN_KEY)
-    api.defaults.headers.common['Authorization'] = ''
-    
-    setAuthState({
-      token: null,
-      authenticated: false,
-      isLoading: false
-    })
-  }
-
-
-  const value = {
-    onRegister: register,
-    onLogin: login,
-    onLogout: logout,
-    getProfile,
-    authState,
-    userState
-  }
-
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  )
+  return isSet && children
 }
+
+export { AuthProvider };

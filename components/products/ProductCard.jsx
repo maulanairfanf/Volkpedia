@@ -1,8 +1,5 @@
 import { TouchableOpacity, View, Text, Image } from 'react-native'
-import React, { useEffect } from 'react'
 import styles from './productCard.style'
-import {Ionicons} from "@expo/vector-icons"
-import { COLORS } from '../../constants'
 import { useNavigation } from '@react-navigation/native'
 import { rupiah } from '../../utils/currency'
 const ProductCard = ({item}) => {

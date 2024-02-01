@@ -9,11 +9,13 @@ import Heading from '../components/home/Heading'
 import ProductRow from '../components/products/ProductRow'
 import { useNavigation } from '@react-navigation/native'
 import { Search } from '../components/reusable'
-import { useAuth } from '../context/AuthContext'
+import { useSelector } from 'react-redux'
 
 const Home = () => {
   const navigation = useNavigation()
-  const { userState } = useAuth();
+  const user = useSelector((state) => state.user)
+  const cart = useSelector((state) => state.cart)
+  
 
   return (
     <SafeAreaView>
@@ -21,9 +23,9 @@ const Home = () => {
         <View style={styles.appBar}>
           <Search mode="redirect" />
           <View style={{ alignItems: "flex-end" }} >
-            { userState?.countCart ?
+            { user?.data.countCart ?
             <View style={styles.cartCount} >
-              <Text style={styles.cartNumber} > {userState?.countCart} </Text>
+              <Text style={styles.cartNumber} > {cart?.data?.length} </Text>
             </View> : ''
            }
             <TouchableOpacity onPressIn={() => navigation.navigate("Cart")}>

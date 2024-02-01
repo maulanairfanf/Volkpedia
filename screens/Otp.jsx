@@ -5,14 +5,14 @@ import styles from './otp.style';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { api } from '../hooks/axios';
 import { COLORS, SIZES } from '../constants';
-import { useAuth } from '../context/AuthContext';
 import Toast from 'react-native-root-toast';
+import { useFetch } from '../hooks/fetch';
+
 const OtpInput = () => {
   const navigation = useNavigation()
   const route = useRoute()
   const {item} = route.params;
   const [isLoading, setIsLoading] = useState(false)
-  const { onRegister } = useAuth();
 
   const [otp, setOtp] = useState(['', '', '', '']);
   const handleOtpChange = (value, index) => {
@@ -31,7 +31,7 @@ const OtpInput = () => {
   const handleResendOtp = async () => {
     setIsLoading(true)
     try {
-      await onRegister(item.email, item.password, item.fullName)
+      await useFetch('post', '/auth/signup', {email: item.email, password: item.password, fullName: item.fullName})
     } catch (error) {
       Toast.show('Email already used', Toast.MEDIUM);
     }
